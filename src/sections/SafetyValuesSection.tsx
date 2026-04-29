@@ -1,0 +1,62 @@
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import { Shield, Leaf, Clock } from "lucide-react";
+
+const values = [
+  {
+    icon: Shield,
+    title: "알레르기 안전성",
+    description:
+      "성분별 알레르기 유발 물질 데이터베이스와 교차 분석하여 사용자의 건강 정보를 반영한 안전한 추천을 제공합니다.",
+  },
+  {
+    icon: Leaf,
+    title: "비건 \u0026 에코 인증",
+    description:
+      "동물성 원료 제외 및 지속가능성 인증을 받은 브랜드만을 선별하여 가치 소비를 지원합니다.",
+  },
+  {
+    icon: Clock,
+    title: "TPO 기반 큐레이션",
+    description:
+      "시간, 장소, 상황(Time, Place, Occasion)을 고려하여 당일의 컨텍스트에 최적화된 향기를 제안합니다.",
+  },
+];
+
+export default function SafetyValuesSection() {
+  const { ref, isVisible } = useIntersectionObserver();
+
+  return (
+    <section id="safety" className="bg-wood text-cream py-24 md:py-40">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-8">
+        <div ref={ref} className={`transition-all duration-800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="text-center mb-16">
+            <p className="label-upper text-cream/40 mb-4">Trust & Values</p>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light tracking-tight">
+              믿을 수 있는 기준
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
+            {values.map((v, i) => (
+              <div
+                key={v.title}
+                className="text-center md:text-left group"
+                style={{
+                  opacity: isVisible ? 1 : 0,
+                  transform: isVisible ? "translateY(0)" : "translateY(20px)",
+                  transition: `all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${i * 100 + 200}ms`,
+                }}
+              >
+                <div className="w-10 h-10 flex items-center justify-center mb-6 mx-auto md:mx-0">
+                  <v.icon size={24} strokeWidth={1} className="text-cream/60 group-hover:text-cream transition-colors duration-400" />
+                </div>
+                <h3 className="text-[15px] font-medium mb-3">{v.title}</h3>
+                <p className="text-[14px] leading-[1.7] text-cream/50">{v.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

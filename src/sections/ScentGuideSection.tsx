@@ -1,5 +1,5 @@
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
-import { Droplets, Wind, Leaf, Mountain } from "lucide-react";
+import { Leaf, Mountain } from "lucide-react";
 
 const families = [
   {

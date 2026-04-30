@@ -5,18 +5,7 @@
  */
 
 import { useState } from "react";
-
-interface Product {
-  id: number;
-  name: string;
-  brand: string;
-  price: string;
-  size: string;
-  image: string;
-  notes: string;
-  family: string;
-  tags: string[];
-}
+import type { Product } from "@/data/productData";
 
 interface ProductCardProps {
   /** 카드에 표시할 제품 객체 */
@@ -25,9 +14,11 @@ interface ProductCardProps {
   isVisible: boolean;
   /** 그리드 내에서의 인덱스 (순차적 등장 애니메이션 딜레이용) */
   index: number;
+  /** 클릭 시 호출될 핸들러 */
+  onClick?: (product: Product) => void;
 }
 
-export default function ProductCard({ product, isVisible, index }: ProductCardProps) {
+export default function ProductCard({ product, isVisible, index, onClick }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -35,6 +26,7 @@ export default function ProductCard({ product, isVisible, index }: ProductCardPr
       className="group cursor-pointer"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={() => onClick?.(product)}
       style={{
         opacity: isVisible ? 1 : 0,
         transform: isVisible ? "translateY(0)" : "translateY(20px)",

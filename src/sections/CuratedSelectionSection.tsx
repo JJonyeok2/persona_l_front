@@ -7,7 +7,9 @@
 import { useState, useEffect } from "react";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import ProductCard from "@/components/curated/ProductCard";
+import ProductModal from "@/components/curated/ProductModal";
 import { products } from "@/data/productData";
+import type { Product } from "@/data/productData";
 
 const filters = ["All", "For You", "Vegan", "Eco"] as const;
 type Filter = (typeof filters)[number];
@@ -16,6 +18,7 @@ export default function CuratedSelectionSection({ results }: { results?: any }) 
   const { ref, isVisible } = useIntersectionObserver();
   const [activeCategory, setActiveCategory] = useState<"Personal" | "Space">("Personal");
   const [activeFilter, setActiveFilter] = useState<Filter>("All");
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   useEffect(() => {
     if (results?.type) {
@@ -92,13 +95,22 @@ export default function CuratedSelectionSection({ results }: { results?: any }) 
           {filtered.map((product, i) => (
             <ProductCard 
               key={product.id} 
-              product={product as any} 
+              product={product} 
               isVisible={isVisible} 
               index={i} 
+              onClick={(p) => setSelectedProduct(p)}
             />
           ))}
         </div>
       </div>
+
+      {/* 제품 상세 모달 */}
+      {selectedProduct && (
+        <ProductModal 
+          product={selectedProduct} 
+          onClose={() => setSelectedProduct(null)} 
+        />
+      )}
     </section>
   );
 }

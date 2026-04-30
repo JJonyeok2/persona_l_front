@@ -1,4 +1,11 @@
+/**
+ * @file FooterSection.tsx
+ * @description 웹사이트의 하단 푸터 영역입니다.
+ * 브랜드 정보, 주요 메뉴 링크, 소셜 미디어 링크 및 법적 고지 정보를 포함합니다.
+ */
+
 export default function FooterSection() {
+  // 푸터 네비게이션용 링크 리스트
   const links = [
     { label: "컨셉", href: "#philosophy" },
     { label: "AI 인터뷰", href: "#interview" },
@@ -11,13 +18,14 @@ export default function FooterSection() {
     <footer className="bg-cream border-t border-wood/10">
       <div className="max-w-[1440px] mx-auto px-6 md:px-8 py-12 md:py-16">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
-          {/* Brand */}
+          
+          {/* 브랜드 영역 (좌측) */}
           <div>
             <p className="text-sm font-medium tracking-[0.2em] uppercase">Persona L</p>
             <p className="text-[11px] text-wood/40 mt-1 tracking-wider">AI Scent Stylist</p>
           </div>
 
-          {/* Nav */}
+          {/* 네비게이션 메뉴 영역 (중앙) */}
           <nav className="flex flex-wrap gap-6 md:gap-8">
             {links.map((l) => (
               <a
@@ -30,7 +38,7 @@ export default function FooterSection() {
             ))}
           </nav>
 
-          {/* Social */}
+          {/* 소셜 및 연락처 영역 (우측) */}
           <div className="flex items-center gap-6">
             <a
               href="https://www.instagram.com/JJonyeok2"
@@ -49,6 +57,7 @@ export default function FooterSection() {
           </div>
         </div>
 
+        {/* 하단 법적 고지 및 정책 링크 (Bottom Bar) */}
         <div className="mt-12 pt-6 border-t border-wood/5 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-[10px] text-wood/30 tracking-wider">
             © 2026 Persona L. All rights reserved.

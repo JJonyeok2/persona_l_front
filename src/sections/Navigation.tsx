@@ -1,12 +1,21 @@
+/**
+ * @file Navigation.tsx
+ * @description 상단 네비게이션 바와 전체 화면 메뉴 오버레이를 담당하는 컴포넌트입니다.
+ * 스크롤 위치에 따른 헤더 디자인 변경 및 모바일 대응 메뉴 기능을 포함합니다.
+ */
+
 import { useState } from "react";
 import { Menu, X, Search, Heart } from "lucide-react";
-import { useScrollPosition } from "@/hooks/useIntersectionObserver";
+import { useIsScrolled } from "@/hooks/useIntersectionObserver";
 
 export default function Navigation() {
-  const scrollY = useScrollPosition();
+  // 스크롤이 80px 이상 내려갔는지 여부를 감지하여 헤더 스타일 전환에 사용
+  const isScrolled = useIsScrolled(80);
+  
+  // 전체 화면 메뉴의 열림/닫힘 상태 관리
   const [menuOpen, setMenuOpen] = useState(false);
-  const isScrolled = scrollY > 80;
 
+  // 네비게이션 메뉴 링크 데이터
   const navLinks = [
     { label: "컨셉", href: "#philosophy" },
     { label: "AI 인터뷰", href: "#interview" },
@@ -17,38 +26,47 @@ export default function Navigation() {
 
   return (
     <>
+      {/* 상단 고정 헤더 */}
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled
-            ? "bg-cream/95 backdrop-blur-sm border-b border-wood/5"
-            : "bg-transparent"
+            ? "bg-cream/95 backdrop-blur-sm border-b border-wood/5" // 스크롤 시: 반투명 크림색 배경 + 블러 효과
+            : "bg-transparent" // 초기 상태: 투명 배경
         }`}
       >
         <div className="max-w-[1440px] mx-auto px-6 md:px-8 h-16 flex items-center justify-between">
+          {/* 왼쪽 영역: 메뉴 버튼 및 검색 */}
           <div className="flex items-center gap-6">
             <button
               onClick={() => setMenuOpen(true)}
+              aria-label="메뉴 열기"
               className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-widest hover:opacity-60 transition-opacity duration-300"
             >
               <Menu size={18} strokeWidth={1.5} />
               <span className="hidden sm:inline">메뉴</span>
             </button>
-            <button className="hover:opacity-60 transition-opacity duration-300">
+            <button 
+              aria-label="검색"
+              className="hover:opacity-60 transition-opacity duration-300"
+            >
               <Search size={18} strokeWidth={1.5} />
             </button>
           </div>
 
+          {/* 중앙 영역: 로고 */}
           <a
             href="#"
             className={`absolute left-1/2 -translate-x-1/2 text-sm font-medium tracking-[0.2em] uppercase transition-colors duration-500 ${
-              isScrolled ? "text-wood" : "text-cream"
+              isScrolled ? "text-wood" : "text-cream" // 스크롤 상태에 따라 로고 색상 변경
             }`}
           >
             Persona L
           </a>
 
+          {/* 오른쪽 영역: 위시리스트 */}
           <div className="flex items-center gap-6">
             <button
+              aria-label="위시리스트"
               className={`flex items-center gap-2 text-[11px] font-medium uppercase tracking-widest hover:opacity-60 transition-opacity duration-300 ${
                 isScrolled ? "text-wood" : "text-cream"
               }`}
@@ -61,13 +79,14 @@ export default function Navigation() {
         </div>
       </header>
 
-      {/* Full-screen menu overlay */}
+      {/* 전체 화면 메뉴 오버레이 (Full-screen Overlay) */}
       <div
         className={`fixed inset-0 z-[60] bg-cream transition-transform duration-700 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${
-          menuOpen ? "translate-y-0" : "-translate-y-full"
+          menuOpen ? "translate-y-0" : "-translate-y-full" // 위에서 아래로 내려오는 애니메이션
         }`}
       >
         <div className="h-full flex flex-col">
+          {/* 메뉴 상단: 닫기 버튼 */}
           <div className="h-16 flex items-center justify-end px-6 md:px-8">
             <button
               onClick={() => setMenuOpen(false)}
@@ -78,6 +97,7 @@ export default function Navigation() {
             </button>
           </div>
 
+          {/* 메뉴 중앙: 링크 리스트 */}
           <nav className="flex-1 flex flex-col justify-center px-6 md:px-16 lg:px-24">
             {navLinks.map((link, i) => (
               <a
@@ -86,14 +106,15 @@ export default function Navigation() {
                 onClick={() => setMenuOpen(false)}
                 className="group py-4 border-b border-wood/10 flex items-center justify-between"
                 style={{
+                  // 메뉴가 열릴 때 순차적으로 나타나도록 딜레이 설정
                   transitionDelay: menuOpen ? `${i * 50}ms` : "0ms",
                 }}
               >
                 <span
                   className={`text-3xl md:text-5xl font-light tracking-tight transition-all duration-500 ${
                     menuOpen
-                      ? "translate-x-0 opacity-100"
-                      : "-translate-x-8 opacity-0"
+                      ? "translate-x-0 opacity-100" // 열릴 때: 제자리로 이동하며 선명해짐
+                      : "-translate-x-8 opacity-0" // 닫힐 때: 왼쪽으로 사라짐
                   }`}
                 >
                   {link.label}
@@ -105,6 +126,7 @@ export default function Navigation() {
             ))}
           </nav>
 
+          {/* 메뉴 하단: 카피라이트 */}
           <div className="px-6 md:px-16 lg:px-24 pb-8">
             <p className="text-[11px] text-wood/40 tracking-wider">
               © 2026 Persona L. AI Scent Stylist.

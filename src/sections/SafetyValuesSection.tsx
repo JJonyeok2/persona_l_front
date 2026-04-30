@@ -1,6 +1,15 @@
+/**
+ * @file SafetyValuesSection.tsx
+ * @description 브랜드가 추구하는 가치(안전성, 윤리성, 편의성)를 설명하는 섹션입니다.
+ * 세 개의 핵심 가치를 아이콘과 함께 그리드 레이아웃으로 배치합니다.
+ */
+
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { Shield, Leaf, Clock } from "lucide-react";
 
+/**
+ * 브랜드 가치 데이터 리스트
+ */
 const values = [
   {
     icon: Shield,
@@ -10,7 +19,7 @@ const values = [
   },
   {
     icon: Leaf,
-    title: "비건 \u0026 에코 인증",
+    title: "비건 & 에코 인증",
     description:
       "동물성 원료 제외 및 지속가능성 인증을 받은 브랜드만을 선별하여 가치 소비를 지원합니다.",
   },
@@ -28,7 +37,10 @@ export default function SafetyValuesSection() {
   return (
     <section id="safety" className="bg-wood text-cream py-24 md:py-40">
       <div className="max-w-[1440px] mx-auto px-6 md:px-8">
+        {/* 섹션 등장 애니메이션 컨테이너 */}
         <div ref={ref} className={`transition-all duration-800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          
+          {/* 섹션 헤더 */}
           <div className="text-center mb-16">
             <p className="label-upper text-cream/40 mb-4">Trust & Values</p>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-light tracking-tight">
@@ -36,20 +48,24 @@ export default function SafetyValuesSection() {
             </h2>
           </div>
 
+          {/* 가치 카드 그리드 */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
             {values.map((v, i) => (
               <div
                 key={v.title}
                 className="text-center md:text-left group"
                 style={{
+                  // 각 카드가 순차적으로 나타나도록 인덱스에 따른 딜레이 적용
                   opacity: isVisible ? 1 : 0,
                   transform: isVisible ? "translateY(0)" : "translateY(20px)",
                   transition: `all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${i * 100 + 200}ms`,
                 }}
               >
+                {/* 아이콘 영역 */}
                 <div className="w-10 h-10 flex items-center justify-center mb-6 mx-auto md:mx-0">
                   <v.icon size={24} strokeWidth={1} className="text-cream/60 group-hover:text-cream transition-colors duration-400" />
                 </div>
+                {/* 타이틀 및 설명 */}
                 <h3 className="text-[15px] font-medium mb-3">{v.title}</h3>
                 <p className="text-[14px] leading-[1.7] text-cream/50">{v.description}</p>
               </div>

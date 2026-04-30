@@ -1,6 +1,15 @@
+/**
+ * @file ScentGuideSection.tsx
+ * @description 향기의 계열(Family)과 부향률(Concentration)에 대한 정보를 제공하는 교육적 섹션입니다.
+ * 사용자가 향수에 대한 기초 지식을 쌓을 수 있도록 카드와 리스트 형태로 정보를 전달합니다.
+ */
+
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { Leaf, Mountain } from "lucide-react";
 
+/**
+ * 향기 계열 데이터 정의
+ */
 const families = [
   {
     title: "Woody",
@@ -15,7 +24,7 @@ const families = [
       },
     ],
     icon: Mountain,
-    color: "bg-wood/5",
+    color: "bg-wood/5", // 우디 계열 특유의 톤을 위한 연한 배경색
   },
   {
     title: "Floral",
@@ -26,10 +35,13 @@ const families = [
       { name: "Jasmine", desc: ["달콤하면서도 관능적인 밤의 꽃,", "신비로운 매력을 더해줍니다."] },
     ],
     icon: Leaf,
-    color: "bg-cream",
+    color: "bg-cream", // 플로럴 계열의 화사함을 위한 밝은 배경색
   },
 ];
 
+/**
+ * 향수 등급(부향률) 데이터 정의
+ */
 const concentrations = [
   { type: "Parfum", ratio: "20-30%", duration: "7-8h+", desc: "가장 진하고 깊은 영혼의 향기" },
   { type: "Eau de Parfum", ratio: "15-20%", duration: "5-6h", desc: "풍부한 잔향이 매력적인 데일리 시그니처" },
@@ -45,7 +57,7 @@ export default function ScentGuideSection() {
       <div className="max-w-[1440px] mx-auto px-6 md:px-8">
         <div ref={ref} className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           
-          {/* Header */}
+          {/* 섹션 헤더: 타이틀과 간략한 설명 */}
           <div className="max-w-3xl mb-20">
             <p className="label-upper text-wood/40 mb-4">Scent Education</p>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-light tracking-tight mb-6">
@@ -60,7 +72,7 @@ export default function ScentGuideSection() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
-            {/* Concentration Guide */}
+            {/* 01. 부향률 가이드 영역 */}
             <div>
               <h3 className="text-[12px] font-bold uppercase tracking-[0.2em] text-wood/30 mb-10">
                 01. Concentration (부향률)
@@ -70,6 +82,7 @@ export default function ScentGuideSection() {
                   <div key={c.type} className="group border-b border-wood/10 pb-6">
                     <div className="flex justify-between items-end mb-2">
                       <h4 className="text-lg font-medium">{c.type}</h4>
+                      {/* 비율과 지속시간 정보 */}
                       <span className="text-[11px] font-mono text-wood/40">{c.ratio} / {c.duration}</span>
                     </div>
                     <p className="text-sm text-wood/60 group-hover:text-wood transition-colors duration-300">
@@ -80,7 +93,7 @@ export default function ScentGuideSection() {
               </div>
             </div>
 
-            {/* Woody Deep Dive */}
+            {/* 02. 향기 계열 심층 가이드 영역 */}
             <div>
               <h3 className="text-[12px] font-bold uppercase tracking-[0.2em] text-wood/30 mb-10">
                 02. Scent Family (계열의 차이)
@@ -88,6 +101,7 @@ export default function ScentGuideSection() {
               <div className="space-y-12">
                 {families.map((f) => (
                   <div key={f.title} className={`${f.color} p-8 md:p-10 rounded-sm`}>
+                    {/* 계열 타이틀 및 아이콘 */}
                     <div className="flex items-center gap-3 mb-4">
                       <f.icon size={20} strokeWidth={1.5} className="text-wood" />
                       <h4 className="text-xl font-medium">{f.title}</h4>
@@ -95,11 +109,13 @@ export default function ScentGuideSection() {
                     <p className="text-[13px] text-wood/40 uppercase tracking-widest mb-2">{f.subtitle}</p>
                     <p className="text-sm text-wood/70 mb-8">{f.description}</p>
                     
+                    {/* 계열 내 대표적인 향기 성분(Details) */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-wood/10">
                       {f.details.map((d) => (
                         <div key={d.name}>
                           <p className="text-[13px] font-semibold mb-1">{d.name}</p>
                           <div className="text-[12px] leading-relaxed text-wood/50">
+                            {/* 설명이 배열일 경우 줄바꿈 처리, 아닐 경우 한 줄 처리 */}
                             {Array.isArray(d.desc) ? (
                               d.desc.map((line, idx) => (
                                 <p key={idx}>{line}</p>

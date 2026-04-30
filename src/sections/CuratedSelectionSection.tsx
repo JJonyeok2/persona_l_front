@@ -1,9 +1,21 @@
+/**
+ * @file CuratedSelectionSection.tsx
+ * @description 사용자 맞춤형 추천 제품 리스트를 보여주는 섹션입니다.
+ * 필터링 기능(전체, 맞춤, 비건, 에코)과 제품 호버 효과를 포함합니다.
+ */
+
 import { useState } from "react";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
+/**
+ * 필터 종류 및 타입 정의
+ */
 const filters = ["All", "For You", "Vegan", "Eco"] as const;
 type Filter = (typeof filters)[number];
 
+/**
+ * 향수 제품 데이터베이스
+ */
 const products: {
   id: number;
   name: string;
@@ -12,9 +24,9 @@ const products: {
   size: string;
   image: string;
   tags: Filter[];
-  notes: string;
-  family: string;
-  featured?: boolean;
+  notes: string; // 향수 노트 설명
+  family: string; // 향기 계열
+  featured?: boolean; // 추천 강조 여부
 }[] = [
   {
     id: 1,
@@ -110,9 +122,14 @@ const products: {
 
 export default function CuratedSelectionSection() {
   const { ref, isVisible } = useIntersectionObserver();
+  
+  // 현재 선택된 필터 상태
   const [activeFilter, setActiveFilter] = useState<Filter>("All");
+  
+  // 현재 마우스 호버 중인 제품 ID
   const [hoveredProduct, setHoveredProduct] = useState<number | null>(null);
 
+  // 필터 조건에 따라 제품 리스트를 가공
   const filtered =
     activeFilter === "All"
       ? products
@@ -121,7 +138,7 @@ export default function CuratedSelectionSection() {
   return (
     <section id="curated" className="bg-[#F7F7F7] py-24 md:py-40">
       <div className="max-w-[1440px] mx-auto px-6 md:px-8">
-        {/* Header */}
+        {/* 섹션 헤더 및 필터 바 */}
         <div ref={ref} className={`flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 transition-all duration-800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div>
             <p className="label-upper text-wood/40 mb-4">Curated Selection</p>
@@ -130,7 +147,7 @@ export default function CuratedSelectionSection() {
             </h2>
           </div>
 
-          {/* Filter bar */}
+          {/* 필터 버튼 그룹 */}
           <div className="flex items-center gap-6">
             {filters.map((f) => (
               <button
@@ -140,7 +157,9 @@ export default function CuratedSelectionSection() {
                   activeFilter === f ? "text-wood" : "text-wood/40 hover:text-wood/70"
                 }`}
               >
+                {/* 필터 라벨 한글 변환 */}
                 {f === "All" ? "전체" : f === "For You" ? "맞춤" : f === "Vegan" ? "비건" : "에코"}
+                {/* 선택된 필터 표시용 닷(Dot) */}
                 {activeFilter === f && (
                   <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 bg-wood rounded-full" />
                 )}
@@ -149,7 +168,7 @@ export default function CuratedSelectionSection() {
           </div>
         </div>
 
-        {/* Editorial grid */}
+        {/* 제품 그리드 리스트 */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
           {filtered.map((product, i) => {
             const isHovered = hoveredProduct === product.id;
@@ -161,11 +180,13 @@ export default function CuratedSelectionSection() {
                 onMouseEnter={() => setHoveredProduct(product.id)}
                 onMouseLeave={() => setHoveredProduct(null)}
                 style={{
+                  // 제품 카드가 순차적으로 나타나는 애니메이션 설정
                   opacity: isVisible ? 1 : 0,
                   transform: isVisible ? "translateY(0)" : "translateY(20px)",
                   transition: `all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${i * 100}ms`,
                 }}
               >
+                {/* 이미지 박스 및 호버 오버레이 */}
                 <div className="relative bg-cream overflow-hidden aspect-[3/4]">
                   <img
                     src={product.image}
@@ -174,7 +195,7 @@ export default function CuratedSelectionSection() {
                       isHovered ? "scale-[1.03]" : "scale-100"
                     }`}
                   />
-                  {/* Hover overlay */}
+                  {/* 마우스 호버 시 나타나는 상세 노트 정보 */}
                   <div
                     className={`absolute inset-0 bg-wood/40 flex flex-col justify-end p-5 md:p-6 transition-opacity duration-400 ${
                       isHovered ? "opacity-100" : "opacity-0"
@@ -183,7 +204,7 @@ export default function CuratedSelectionSection() {
                     <p className="text-cream/80 text-[12px] leading-relaxed mb-2">{product.notes}</p>
                     <p className="text-cream text-[10px] font-medium uppercase tracking-widest">{product.family}</p>
                   </div>
-                  {/* Tags */}
+                  {/* 제품 태그 (맞춤, 비건 등) */}
                   <div className="absolute top-4 left-4 flex gap-2">
                     {product.tags.map((tag) => (
                       <span
@@ -196,7 +217,7 @@ export default function CuratedSelectionSection() {
                   </div>
                 </div>
 
-                {/* Product info */}
+                {/* 하단 제품 정보 정보 (브랜드, 이름, 가격 등) */}
                 <div className="pt-4 pb-2">
                   <p className="text-[11px] uppercase tracking-widest text-wood/40 mb-1">{product.brand}</p>
                   <div className="flex items-baseline justify-between">

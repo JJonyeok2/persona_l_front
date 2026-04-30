@@ -1,3 +1,9 @@
+/**
+ * @file productData.ts
+ * @description 사이트에서 판매 및 추천하는 향수와 홈 프래그넌스 제품들의 데이터베이스입니다.
+ * Personal(향수) 및 Space(디퓨저, 캔들 등) 카테고리로 구분됩니다.
+ */
+
 export const products = [
   {
     id: 1,

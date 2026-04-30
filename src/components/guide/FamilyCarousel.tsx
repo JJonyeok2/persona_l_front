@@ -1,3 +1,9 @@
+/**
+ * @file FamilyCarousel.tsx
+ * @description 향기의 계열(Woody, Floral 등)을 설명하는 자동 슬라이드 캐러셀 컴포넌트입니다.
+ * 10초마다 자동으로 전환되며, 사용자가 직접 인디케이터를 클릭해 조절할 수 있습니다.
+ */
+
 import { useState, useEffect } from "react";
 import type { LucideIcon } from "lucide-react";
 
@@ -11,12 +17,14 @@ interface Family {
 }
 
 interface FamilyCarouselProps {
+  /** 캐러셀에 표시할 향기 계열 데이터 리스트 */
   families: Family[];
 }
 
 export default function FamilyCarousel({ families }: FamilyCarouselProps) {
   const [activeFamilyIdx, setActiveFamilyIdx] = useState(0);
 
+  // 10초마다 다음 계열로 자동 전환 (루프)
   useEffect(() => {
     const timer = setInterval(() => {
       setActiveFamilyIdx((prev) => (prev + 1) % families.length);
@@ -30,6 +38,7 @@ export default function FamilyCarousel({ families }: FamilyCarouselProps) {
         <h3 className="text-[11px] md:text-[12px] font-bold uppercase tracking-[0.2em] text-wood/30">
           02. Scent Family (계열의 차이)
         </h3>
+        {/* 슬라이드 인디케이터 (버튼 기능) */}
         <div className="flex gap-2">
           {families.map((_, i) => (
             <button 
@@ -54,21 +63,24 @@ export default function FamilyCarousel({ families }: FamilyCarouselProps) {
                   : 'opacity-0 translate-x-10'
             }`}
           >
-            <div className={`${f.color} p-6 sm:p-8 md:p-12 h-full rounded-sm border border-wood/5 flex flex-col`}>
+            <div className={`${f.color} p-6 sm:p-8 md:p-12 h-full rounded-sm border border-wood/5 flex flex-col text-wood`}>
+              {/* 계열 타이틀 및 아이콘 */}
               <div className="flex items-center gap-3 md:gap-4 mb-6">
                 <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-wood/5 flex items-center justify-center">
-                  <f.icon size={22} strokeWidth={1.2} className="text-wood" />
+                  <f.icon size={22} strokeWidth={1.2} />
                 </div>
                 <div>
-                  <h4 className="text-xl md:text-2xl font-light tracking-tight text-wood">{f.title}</h4>
+                  <h4 className="text-xl md:text-2xl font-light tracking-tight">{f.title}</h4>
                   <p className="text-[9px] md:text-[11px] text-wood/40 uppercase tracking-[0.2em]">{f.subtitle}</p>
                 </div>
               </div>
               
-              <p className="text-[14px] md:text-[16px] leading-[1.8] text-wood/70 mb-8 md:mb-12 font-light break-keep text-wood">
+              {/* 계열 본문 설명 */}
+              <p className="text-[14px] md:text-[16px] leading-[1.8] text-wood/70 mb-8 md:mb-12 font-light break-keep">
                 {f.description}
               </p>
               
+              {/* 상세 성분 리스트 */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-10 pt-6 md:pt-10 border-t border-wood/10 mt-auto">
                 {f.details.map((d) => (
                   <div key={d.name}>

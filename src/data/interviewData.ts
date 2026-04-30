@@ -1,8 +1,20 @@
+/**
+ * @file interviewData.ts
+ * @description AI 인터뷰 섹션에서 사용되는 대화 시나리오 및 질문 옵션 데이터입니다.
+ * 사용자의 선택에 따라 Personal 또는 Space 트랙으로 분기되는 로직을 지원합니다.
+ */
+
 export const interviewFlows = {
+  /**
+   * 인터뷰 시작 지점: 분야 선택
+   */
   start: {
     ai: "안녕하세요. 어떤 분야의 향기 스타일링을 도와드릴까요?",
     options: ["나의 퍼스널 향수", "나의 공간 향기"],
   },
+  /**
+   * Personal Scent 트랙: 개인의 무드와 패션 스타일 분석
+   */
   personal: [
     {
       ai: "오늘 어떤 분위기를 원하시나요?",
@@ -17,6 +29,9 @@ export const interviewFlows = {
       options: ["우디 향은 거부감이 있어요", "플로랄이 너무 달게 느껴져요", "시트러스는 피하고 싶어요", "특별히 없어요"],
     },
   ],
+  /**
+   * Space Scent 트랙: 머무는 공간의 인테리어 요소 분석
+   */
   space: [
     {
       ai: "머무는 공간의 주된 색감은 무엇인가요?",

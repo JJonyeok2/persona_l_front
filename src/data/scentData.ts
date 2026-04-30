@@ -1,5 +1,14 @@
+/**
+ * @file scentData.ts
+ * @description 향기의 계열(Family) 및 농도(Concentration)에 대한 교육용 텍스트 데이터입니다.
+ * 각 계열의 특징과 대표 성분, 부향률별 지속시간 정보를 포함합니다.
+ */
+
 import { Leaf, Mountain, Sun, Sparkles } from "lucide-react";
 
+/**
+ * 향기 계열 데이터: Woody, Floral, Citrus, Oriental 정보
+ */
 export const scentFamilies = [
   {
     title: "Woody",
@@ -51,6 +60,9 @@ export const scentFamilies = [
   },
 ];
 
+/**
+ * 향수 등급(부향률) 데이터: Parfum, EDP, EDT, EDC 정보
+ */
 export const concentrations = [
   { type: "Parfum", koType: "퍼퓸", ratio: "20-30%", duration: "7-8h+", desc: "가장 진하고 깊은 영혼의 향기" },
   { type: "Eau de Parfum", koType: "오 드 퍼퓸", ratio: "15-20%", duration: "5-6h", desc: "풍부한 잔향이 매력적인 데일리 시그니처" },

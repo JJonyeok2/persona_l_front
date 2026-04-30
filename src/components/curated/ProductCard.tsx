@@ -1,3 +1,9 @@
+/**
+ * @file ProductCard.tsx
+ * @description 큐레이션 섹션에서 개별 제품의 정보를 표시하는 카드 컴포넌트입니다.
+ * 마우스 호버 시 상세 노트를 보여주는 효과와 반응형 애니메이션을 포함합니다.
+ */
+
 import { useState } from "react";
 
 interface Product {
@@ -13,8 +19,11 @@ interface Product {
 }
 
 interface ProductCardProps {
+  /** 카드에 표시할 제품 객체 */
   product: Product;
+  /** 섹션의 가시성 상태 (애니메이션 트리거용) */
   isVisible: boolean;
+  /** 그리드 내에서의 인덱스 (순차적 등장 애니메이션 딜레이용) */
   index: number;
 }
 
@@ -59,13 +68,13 @@ export default function ProductCard({ product, isVisible, index }: ProductCardPr
           ))}
         </div>
       </div>
-      <div className="mt-4 md:mt-5 px-1">
+      <div className="mt-4 md:mt-5 px-1 text-wood">
         <div className="flex justify-between items-start">
           <div>
             <p className="text-[10px] uppercase tracking-widest text-wood/40 mb-1">{product.brand}</p>
-            <h4 className="text-[14px] md:text-[15px] font-medium text-wood">{product.name}</h4>
+            <h4 className="text-[14px] md:text-[15px] font-medium">{product.name}</h4>
           </div>
-          <p className="text-[13px] md:text-[14px] font-light text-wood">{product.price}</p>
+          <p className="text-[13px] md:text-[14px] font-light">{product.price}</p>
         </div>
         <p className="text-[11px] text-wood/40 mt-1">{product.size}</p>
       </div>

@@ -1,18 +1,15 @@
+/**
+ * @file RadarChart.tsx
+ * @description 사용자의 취향 분석 결과를 시각화하기 위한 방사형(레이더) 차트 컴포넌트입니다.
+ * SVG를 사용하여 구현되었으며, 반응형 레이아웃과 애니메이션을 지원합니다.
+ */
+
 import { useEffect, useState } from "react";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
-
-/**
- * 방사형 차트용 데이터 (향기 노트별 분석 수치)
- */
-const radarData = [
-  { axis: "플로랄", value: 0.3 },
-  { axis: "우디", value: 0.75 },
-  { axis: "오리엔탈", value: 0.45 },
-  { axis: "프레시", value: 0.6 },
-  { axis: "구르망", value: 0.2 },
-];
+import { radarData } from "@/data/reportData";
 
 interface RadarChartProps {
+  /** 인터뷰 결과가 즉시 로드될 때 애니메이션을 강제로 트리거할지 여부 */
   forceDraw?: boolean;
 }
 

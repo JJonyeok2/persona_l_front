@@ -1,3 +1,9 @@
+/**
+ * @file SimilarAuras.tsx
+ * @description 사용자의 진단 결과와 유사한 분위기를 가진 페르소나들을 추천하는 컴포넌트입니다.
+ * 이미지와 일치도를 시각적인 그래프와 함께 표시합니다.
+ */
+
 interface Aura {
   name: string;
   match: number;
@@ -5,6 +11,7 @@ interface Aura {
 }
 
 interface SimilarAurasProps {
+  /** 추천할 유사 페르소나 데이터 리스트 */
   auras: Aura[];
 }
 
@@ -30,13 +37,13 @@ export default function SimilarAuras({ auras }: SimilarAurasProps) {
               />
             </div>
             {/* 정보 텍스트 */}
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between text-wood">
               <div>
-                <p className="text-[13px] font-medium text-wood">{p.name}</p>
+                <p className="text-[13px] font-medium">{p.name}</p>
                 <p className="text-[11px] text-wood/40 mt-0.5">스타일 유사도</p>
               </div>
               <div className="text-right">
-                <p className="text-xl font-light text-wood">{p.match}%</p>
+                <p className="text-xl font-light">{p.match}%</p>
               </div>
             </div>
             {/* 진행 상태 바 스타일의 유사도 그래프 */}

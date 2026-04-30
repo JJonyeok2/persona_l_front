@@ -27,7 +27,7 @@ const values = [
     icon: Clock,
     title: "TPO 기반 큐레이션",
     description:
-      ["시간, 장소, 상황(Time, Place, Occasion)을 고려하여, ", "당일 컨텍스트에 최적화된 향기를 제안합니다."]
+      "시간, 장소, 상황(Time, Place, Occasion)을 고려하여 당일 컨텍스트에 최적화된 향기를 제안합니다.",
   },
 ];
 
@@ -49,7 +49,7 @@ export default function SafetyValuesSection() {
           </div>
 
           {/* 가치 카드 그리드 */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-8 lg:gap-16">
             {values.map((v, i) => (
               <div
                 key={v.title}
@@ -62,12 +62,12 @@ export default function SafetyValuesSection() {
                 }}
               >
                 {/* 아이콘 영역 */}
-                <div className="w-10 h-10 flex items-center justify-center mb-6 mx-auto md:mx-0">
-                  <v.icon size={24} strokeWidth={1} className="text-cream/60 group-hover:text-cream transition-colors duration-400" />
+                <div className="w-10 h-10 flex items-center justify-center mb-6 mx-auto md:mx-0 bg-cream/5 rounded-full">
+                  <v.icon size={20} strokeWidth={1.2} className="text-cream/60 group-hover:text-cream transition-colors duration-400" />
                 </div>
                 {/* 타이틀 및 설명 */}
-                <h3 className="text-[15px] font-medium mb-3">{v.title}</h3>
-                <p className="text-[14px] leading-[1.7] text-cream/50">{v.description}</p>
+                <h3 className="text-lg font-medium mb-4 tracking-tight">{v.title}</h3>
+                <p className="text-[14px] leading-relaxed text-cream/50 break-keep">{v.description}</p>
               </div>
             ))}
           </div>

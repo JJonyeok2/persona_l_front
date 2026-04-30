@@ -18,6 +18,7 @@ export default function Navigation() {
   // 네비게이션 메뉴 링크 데이터
   const navLinks = [
     { label: "컨셉", href: "#philosophy" },
+    { label: "향기 가이드", href: "#guide" },
     { label: "AI 인터뷰", href: "#interview" },
     { label: "분석 리포트", href: "#report" },
     { label: "추천", href: "#curated" },
@@ -30,24 +31,28 @@ export default function Navigation() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled
-            ? "bg-cream/95 backdrop-blur-sm border-b border-wood/5" // 스크롤 시: 반투명 크림색 배경 + 블러 효과
-            : "bg-transparent" // 초기 상태: 투명 배경
+            ? "bg-cream/95 backdrop-blur-sm border-b border-wood/5 h-14 md:h-16" 
+            : "bg-transparent h-16 md:h-20" 
         }`}
       >
-        <div className="max-w-[1440px] mx-auto px-6 md:px-8 h-16 flex items-center justify-between">
+        <div className="max-w-[1440px] mx-auto px-6 md:px-8 h-full flex items-center justify-between relative">
           {/* 왼쪽 영역: 메뉴 버튼 및 검색 */}
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-4 md:gap-6">
             <button
               onClick={() => setMenuOpen(true)}
               aria-label="메뉴 열기"
-              className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-widest hover:opacity-60 transition-opacity duration-300"
+              className={`flex items-center gap-2 text-[10px] md:text-[11px] font-medium uppercase tracking-widest hover:opacity-60 transition-all duration-300 ${
+                isScrolled ? "text-wood" : "text-cream"
+              }`}
             >
               <Menu size={18} strokeWidth={1.5} />
-              <span className="hidden sm:inline">메뉴</span>
+              <span className="hidden sm:inline">Menu</span>
             </button>
             <button 
               aria-label="검색"
-              className="hover:opacity-60 transition-opacity duration-300"
+              className={`hover:opacity-60 transition-all duration-300 ${
+                isScrolled ? "text-wood" : "text-cream"
+              }`}
             >
               <Search size={18} strokeWidth={1.5} />
             </button>
@@ -56,43 +61,43 @@ export default function Navigation() {
           {/* 중앙 영역: 로고 */}
           <a
             href="#"
-            className={`absolute left-1/2 -translate-x-1/2 text-sm font-medium tracking-[0.2em] uppercase transition-colors duration-500 ${
-              isScrolled ? "text-wood" : "text-cream" // 스크롤 상태에 따라 로고 색상 변경
+            className={`absolute left-1/2 -translate-x-1/2 text-sm md:text-base font-light tracking-[0.3em] uppercase transition-all duration-500 ${
+              isScrolled ? "text-wood" : "text-cream"
             }`}
           >
             Persona L
           </a>
 
           {/* 오른쪽 영역: 위시리스트 */}
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-4 md:gap-6">
             <button
               aria-label="위시리스트"
-              className={`flex items-center gap-2 text-[11px] font-medium uppercase tracking-widest hover:opacity-60 transition-opacity duration-300 ${
+              className={`flex items-center gap-2 text-[10px] md:text-[11px] font-medium uppercase tracking-widest hover:opacity-60 transition-all duration-300 ${
                 isScrolled ? "text-wood" : "text-cream"
               }`}
             >
-              <span className="hidden sm:inline">위시리스트</span>
-              <span className="text-[10px]">(0)</span>
+              <span className="hidden sm:inline">Wishlist</span>
+              <span className="text-[9px] md:text-[10px] opacity-60">(0)</span>
               <Heart size={18} strokeWidth={1.5} />
             </button>
           </div>
         </div>
       </header>
 
-      {/* 전체 화면 메뉴 오버레이 (Full-screen Overlay) */}
+      {/* 전체 화면 메뉴 오버레이 */}
       <div
         className={`fixed inset-0 z-[60] bg-cream transition-transform duration-700 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${
-          menuOpen ? "translate-y-0" : "-translate-y-full" // 위에서 아래로 내려오는 애니메이션
+          menuOpen ? "translate-y-0" : "-translate-y-full"
         }`}
       >
         <div className="h-full flex flex-col">
           {/* 메뉴 상단: 닫기 버튼 */}
-          <div className="h-16 flex items-center justify-end px-6 md:px-8">
+          <div className="h-16 md:h-20 flex items-center justify-end px-6 md:px-8">
             <button
               onClick={() => setMenuOpen(false)}
-              className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-widest hover:opacity-60 transition-opacity duration-300"
+              className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-widest hover:opacity-60 transition-opacity duration-300 text-wood"
             >
-              <span>닫기</span>
+              <span>Close</span>
               <X size={18} strokeWidth={1.5} />
             </button>
           </div>
@@ -104,22 +109,21 @@ export default function Navigation() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
-                className="group py-4 border-b border-wood/10 flex items-center justify-between"
+                className="group py-4 md:py-6 border-b border-wood/10 flex items-center justify-between"
                 style={{
-                  // 메뉴가 열릴 때 순차적으로 나타나도록 딜레이 설정
                   transitionDelay: menuOpen ? `${i * 50}ms` : "0ms",
                 }}
               >
                 <span
-                  className={`text-3xl md:text-5xl font-light tracking-tight transition-all duration-500 ${
+                  className={`text-3xl sm:text-4xl md:text-6xl font-light tracking-tight transition-all duration-700 ${
                     menuOpen
-                      ? "translate-x-0 opacity-100" // 열릴 때: 제자리로 이동하며 선명해짐
-                      : "-translate-x-8 opacity-0" // 닫힐 때: 왼쪽으로 사라짐
+                      ? "translate-x-0 opacity-100"
+                      : "-translate-x-8 opacity-0"
                   }`}
                 >
                   {link.label}
                 </span>
-                <span className="text-[11px] font-medium uppercase tracking-widest text-wood/40 group-hover:text-wood transition-colors duration-300">
+                <span className="text-[10px] md:text-[12px] font-mono text-wood/30 group-hover:text-wood transition-colors duration-300">
                   0{i + 1}
                 </span>
               </a>
@@ -127,8 +131,8 @@ export default function Navigation() {
           </nav>
 
           {/* 메뉴 하단: 카피라이트 */}
-          <div className="px-6 md:px-16 lg:px-24 pb-8">
-            <p className="text-[11px] text-wood/40 tracking-wider">
+          <div className="px-6 md:px-16 lg:px-24 pb-12">
+            <p className="text-[10px] md:text-[11px] text-wood/40 tracking-widest">
               © 2026 Persona L. AI Scent Stylist.
             </p>
           </div>

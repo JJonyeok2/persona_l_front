@@ -1,12 +1,13 @@
 /**
  * @file ScentGuideSection.tsx
- * @description 향기의 계열(Family)과 부향률(Concentration)에 대한 정보를 제공하는 교육적 섹션입니다.
- * 사용자가 향수에 대한 기초 지식을 쌓을 수 있도록 카드와 리스트 형태로 정보를 전달합니다.
+ * @description 향기에 대한 종합적인 교육 정보를 제공하는 섹션입니다.
+ * 부향률, 향기 계열, 그리고 주요 원료 사전을 포함합니다.
  */
 
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import ConcentrationList from "@/components/guide/ConcentrationList";
 import FamilyCarousel from "@/components/guide/FamilyCarousel";
+import NoteGlossary from "@/components/guide/NoteGlossary";
 import { scentFamilies, concentrations } from "@/data/scentData";
 
 export default function ScentGuideSection() {
@@ -20,10 +21,10 @@ export default function ScentGuideSection() {
           {/* 섹션 헤더 */}
           <div className="max-w-3xl mb-16 md:mb-20">
             <p className="label-upper text-wood/40 mb-4">Scent Education</p>
-            <h2 className="text-2xl sm:text-4xl md:text-5xl font-light tracking-tight mb-6 md:mb-8 text-wood break-keep">
+            <h2 className="text-2xl sm:text-4xl md:text-5xl font-light tracking-tight mb-6 md:mb-8 text-wood break-keep text-wood">
               향기를 이해하는,&nbsp;<span className="hidden sm:inline"><br /></span>가장 쉬운 방법
             </h2>
-            <p className="text-wood/60 leading-relaxed text-[15px] sm:text-lg break-keep max-w-3xl">
+            <p className="text-wood/60 leading-relaxed text-[15px] sm:text-lg break-keep max-w-3xl text-wood">
               복잡한 용어 대신 향기가 가진 고유의 성격에 집중해 보세요. <br className="hidden lg:inline" />
               당신의 분위기를 완성하는 마지막 퍼즐 조각을 찾는 과정입니다. <br className="hidden lg:inline" />
               개인이 입는 향수부터 공간을 채우는 디퓨저까지 모든 향기를 아우릅니다.
@@ -37,6 +38,9 @@ export default function ScentGuideSection() {
             {/* 02. 향기 계열 심층 가이드 영역 */}
             <FamilyCarousel families={scentFamilies} />
           </div>
+
+          {/* 03. 향기 원료 사전 (Note Glossary) */}
+          <NoteGlossary />
         </div>
       </div>
     </section>

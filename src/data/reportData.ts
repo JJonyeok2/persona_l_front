@@ -11,17 +11,17 @@ export const auras = [
   { 
     name: "어반 미니멀리스트", 
     match: 94, 
-    image: "https://github.com/user-attachments/assets/1dcd2cd9-baa1-4386-bfc6-e1e8f5378186" 
+    image: "/persona_1.jpg" 
   },
   { 
     name: "아방가르드 크리에이터", 
     match: 87, 
-    image: "https://github.com/user-attachments/assets/943ee401-aaf0-40cc-be6d-9f3e088434a1" 
+    image: "/persona_2.jpg" 
   },
   { 
     name: "내추럴 컨템플레이터", 
     match: 81, 
-    image: "https://github.com/user-attachments/assets/c29216a4-306f-449e-a5ed-94c890196655" 
+    image: "/persona_3.jpg" 
   },
 ];
 

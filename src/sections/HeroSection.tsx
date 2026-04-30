@@ -69,10 +69,8 @@ export default function HeroSection() {
                 <p className="text-[9px] sm:text-[10px] font-medium uppercase tracking-widest text-cream/60 mb-1">
                   Private Consultation
                 </p>
-                <p className="text-[12px] sm:text-sm font-medium leading-snug text-cream">
-                  당신의 스타일과 공간의 무드를
-                  <br />
-                  후각적 언어로 번역해 드립니다
+                <p className="text-[12px] sm:text-sm font-medium leading-snug text-cream break-keep">
+                  당신의 스타일과 공간의 무드를 후각적 언어로 번역해 드립니다
                 </p>
               </div>
               {/* 시작하기 링크 버튼 */}

@@ -22,10 +22,9 @@ export default function PhilosophySection() {
             {/* 제목 영역: 페이드 업 애니메이션 */}
             <div ref={ref1} className={`transition-all duration-800 delay-100 ${vis1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
               <p className="label-upper text-wood/40 mb-6 md:mb-8">Our Philosophy</p>
-              <h2 className="text-2xl sm:text-4xl md:text-5xl font-light leading-[1.3] md:leading-[1.15] tracking-tight mb-6 md:mb-8 break-keep text-wood">
+              <h2 className="text-2xl sm:text-4xl md:text-5xl font-light leading-[1.4] md:leading-[1.15] tracking-tight mb-6 md:mb-8 break-keep text-wood">
                 당신의 스타일과 공간은
-                <br />
-                이미 향기를 말하고 있습니다
+                <span className="hidden md:inline"><br /></span> 이미 향기를 말하고 있습니다
               </h2>
             </div>
             

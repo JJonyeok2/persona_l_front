@@ -48,7 +48,9 @@ export default function InsightReportSection({ results }: { results?: any }) {
         {!results && (
           <div className="max-w-2xl mx-auto text-center py-20 border border-wood/10 rounded-sm">
             <p className="text-wood/40 uppercase tracking-widest text-[11px] mb-4">Awaiting Analysis</p>
-            <h2 className="text-2xl font-light mb-8 break-keep px-4 text-wood">AI 인터뷰를 완료하면 <br/> 당신만의 아우라 리포트가 생성됩니다.</h2>
+            <h2 className="text-xl sm:text-2xl font-light mb-8 break-keep px-4 text-wood">
+              AI 인터뷰를 완료하면 <span className="hidden sm:inline"><br/></span> 당신만의 아우라 리포트가 생성됩니다.
+            </h2>
             <a href="#interview" className="inline-block border border-wood/30 px-8 py-3 text-[11px] uppercase tracking-widest hover:bg-wood hover:text-cream transition-all duration-400">
               인터뷰 시작하기
             </a>
@@ -162,8 +164,8 @@ export default function InsightReportSection({ results }: { results?: any }) {
                   <div className={`transition-all duration-800 delay-200 ${vis4 || results ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                     <div className="p-8 md:p-12 bg-wood text-cream rounded-sm shadow-editorial">
                       <p className="text-[11px] uppercase tracking-[0.3em] text-cream/40 mb-6">Space Recommendation</p>
-                      <h4 className="text-2xl font-light mb-6 leading-tight break-keep text-cream">
-                        {results.spaceLight} <br/>
+                      <h4 className="text-xl sm:text-2xl font-light mb-6 leading-tight break-keep text-cream">
+                        {results.spaceLight} <span className="hidden sm:inline"><br/></span>
                         {results.spaceColor} {results.spaceTexture} 스튜디오
                       </h4>
                       <p className="text-[14px] leading-relaxed text-cream/70 mb-8 break-keep">

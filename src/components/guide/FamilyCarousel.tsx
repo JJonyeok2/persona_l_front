@@ -63,7 +63,7 @@ export default function FamilyCarousel({ families }: FamilyCarouselProps) {
                   : 'opacity-0 translate-x-10'
             }`}
           >
-            <div className={`${f.color} p-5 sm:p-8 md:p-12 h-full rounded-sm border border-wood/5 flex flex-col text-wood`}>
+            <div className={`${f.color} p-6 sm:p-8 md:p-12 h-full rounded-sm border border-wood/5 flex flex-col text-wood`}>
               {/* 계열 타이틀 및 아이콘 */}
               <div className="flex items-center gap-3 md:gap-4 mb-6">
                 <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-wood/5 flex items-center justify-center">
@@ -76,10 +76,9 @@ export default function FamilyCarousel({ families }: FamilyCarouselProps) {
               </div>
 
               {/* 계열 본문 설명 */}
-              <p className="text-[14px] md:text-[16px] leading-[1.7] md:leading-[1.8] text-wood/70 mb-8 md:mb-12 font-light break-keep text-left">
+              <p className="text-[13.5px] sm:text-[16px] leading-[1.7] md:leading-[1.8] text-wood/70 mb-8 md:mb-12 font-light break-keep tracking-tight text-left">
                 {f.description}
-              </p>
-              
+              </p>              
               {/* 상세 성분 리스트 */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-10 pt-6 md:pt-10 border-t border-wood/10 mt-auto">
                 {f.details.map((d) => (

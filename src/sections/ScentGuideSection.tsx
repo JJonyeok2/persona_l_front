@@ -20,8 +20,8 @@ export default function ScentGuideSection() {
           {/* 섹션 헤더 */}
           <div className="max-w-3xl mb-16 md:mb-20">
             <p className="label-upper text-wood/40 mb-4">Scent Education</p>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light tracking-tight mb-6 md:mb-8 text-wood break-keep">
-              향기를 이해하는, <span className="hidden sm:inline"><br /></span> 가장 쉬운 방법
+            <h2 className="text-2xl sm:text-4xl md:text-5xl font-light tracking-tight mb-6 md:mb-8 text-wood break-keep">
+              향기를 이해하는,&nbsp;<span className="hidden sm:inline"><br /></span>가장 쉬운 방법
             </h2>
             <p className="text-wood/60 leading-relaxed text-[15px] sm:text-lg break-keep max-w-2xl text-wood">
               복잡한 용어 대신 향기가 가진 고유의 성격에 집중해 보세요. 

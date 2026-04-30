@@ -22,7 +22,7 @@ export default function PhilosophySection() {
             <div ref={ref1} className={`transition-all duration-800 delay-100 ${vis1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
               <p className="label-upper text-wood/40 mb-8">Our Philosophy</p>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-light leading-[1.15] tracking-tight mb-8">
-                당신의 스타일은
+                당신의 스타일과 공간은
                 <br />
                 이미 향기를 말하고 있습니다
               </h2>
@@ -31,26 +31,26 @@ export default function PhilosophySection() {
             {/* 본문 및 지표 영역: 제목보다 약간 늦게 나타나는 애니메이션 */}
             <div ref={ref2} className={`transition-all duration-800 delay-200 ${vis2 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
               <p className="text-[15px] leading-[1.8] text-wood/60 mb-6 max-w-xl">
-                단순한 상품 검색을 넘어, 사용자가 추구하는 이미지와 패션 스타일을 분석하여
-                최적의 향기를 논리적으로 연결해 주는 스타일 컨설팅 경험을 제공합니다.
-                AI는 전문 조향 지식과 패션 심리학을 결합하여 당신만의 향기 아우라를 완성합니다.
+                단순 상품 검색을 넘어, 사용자가 추구하는 패션 스타일과 머무는 공간의 인테리어를 분석해<br/>
+                최적의 향기를 논리적으로 연결해 주는 토탈 향기 컨설팅 경험을 제공합니다.<br/>
+                AI는 전문 조향 지식과 환경 심리학을 결합하여 당신만의 완벽한 향기 세계관을 완성합니다.
               </p>
               
               {/* 핵심 지표 (Stats) 리스트 */}
               <div className="flex items-center gap-8 pt-4">
                 <div>
                   <p className="text-2xl font-light tracking-tight">50,000+</p>
-                  <p className="text-[11px] uppercase tracking-widest text-wood/40 mt-1">향수 데이터</p>
+                  <p className="text-[11px] uppercase tracking-widest text-wood/40 mt-1">향기 데이터</p>
                 </div>
                 <div className="w-px h-8 bg-wood/10" />
                 <div>
-                  <p className="text-2xl font-light tracking-tight">120+</p>
-                  <p className="text-[11px] uppercase tracking-widest text-wood/40 mt-1">스타일 아우라</p>
+                  <p className="text-2xl font-light tracking-tight">320+</p>
+                  <p className="text-[11px] uppercase tracking-widest text-wood/40 mt-1">스타일 & 공간 아우라</p>
                 </div>
                 <div className="w-px h-8 bg-wood/10" />
                 <div>
                   <p className="text-2xl font-light tracking-tight">98.7%</p>
-                  <p className="text-[11px] uppercase tracking-widest text-wood/40 mt-1">재구매율</p>
+                  <p className="text-[11px] uppercase tracking-widest text-wood/40 mt-1">만족도</p>
                 </div>
               </div>
             </div>

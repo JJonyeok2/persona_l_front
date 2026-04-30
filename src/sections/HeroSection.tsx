@@ -40,7 +40,7 @@ export default function HeroSection() {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4" // 로고보다 300ms 늦게 나타남
           }`}
         >
-          Your Style, Translated into Scent
+          Your Style & Space, Translated into Scent
         </p>
       </div>
 
@@ -66,7 +66,7 @@ export default function HeroSection() {
                   Private Consultation
                 </p>
                 <p className="text-sm font-medium leading-snug text-cream">
-                  당신의 스타일 실루엣을
+                  당신의 스타일과 공간의 무드를
                   <br />
                   후각적 언어로 번역해 드립니다
                 </p>

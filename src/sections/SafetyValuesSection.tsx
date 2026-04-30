@@ -15,7 +15,7 @@ const values = [
     icon: Shield,
     title: "알레르기 안전성",
     description:
-      "성분별 알레르기 유발 물질 데이터베이스와 교차 분석하여 사용자의 건강 정보를 반영한 안전한 추천을 제공합니다.",
+      "성분별 알레르기 유발 물질 데이터베이스와 교차 분석해 사용자의 건강 정보를 반영한 안전한 추천을 제공합니다.",
   },
   {
     icon: Leaf,
@@ -27,7 +27,7 @@ const values = [
     icon: Clock,
     title: "TPO 기반 큐레이션",
     description:
-      "시간, 장소, 상황(Time, Place, Occasion)을 고려하여 당일의 컨텍스트에 최적화된 향기를 제안합니다.",
+      ["시간, 장소, 상황(Time, Place, Occasion)을 고려하여, ", "당일 컨텍스트에 최적화된 향기를 제안합니다."]
   },
 ];
 

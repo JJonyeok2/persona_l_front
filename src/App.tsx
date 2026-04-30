@@ -4,6 +4,7 @@
  * 사이트의 전역 테마(배경색, 텍스트 색상)를 설정하고 각 섹션을 순서대로 배치합니다.
  */
 
+import { useState } from "react";
 import Navigation from "@/sections/Navigation";
 import HeroSection from "@/sections/HeroSection";
 import PhilosophySection from "@/sections/PhilosophySection";
@@ -15,6 +16,9 @@ import SafetyValuesSection from "@/sections/SafetyValuesSection";
 import FooterSection from "@/sections/FooterSection";
 
 export default function App() {
+  // 인터뷰 결과를 저장할 상태
+  const [analysisResults, setAnalysisResults] = useState<any>(null);
+
   return (
     /**
      * 전체 페이지 컨테이너
@@ -39,13 +43,13 @@ export default function App() {
         <ScentGuideSection />
         
         {/* AI 인터뷰 섹션: 사용자 취향 분석을 위한 인터랙티브 채팅 */}
-        <AIInterviewSection />
+        <AIInterviewSection onComplete={(results: any) => setAnalysisResults(results)} />
         
         {/* 분석 리포트 섹션: 인터뷰 결과에 따른 개인화된 분석 결과 */}
-        <InsightReportSection />
+        <InsightReportSection results={analysisResults} />
         
         {/* 큐레이션 섹션: 추천 제품 리스트 */}
-        <CuratedSelectionSection />
+        <CuratedSelectionSection results={analysisResults} />
         
         {/* 안전성 섹션: 제품의 원료 및 안전성 강조 */}
         <SafetyValuesSection />

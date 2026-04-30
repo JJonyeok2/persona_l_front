@@ -11,7 +11,7 @@ export const products = [
     brand: "Persona L",
     price: "₩285,000",
     size: "100 ML",
-    image: "https://github.com/user-attachments/assets/5d4c5ef1-a7ee-443d-810b-09c1aa90977e",
+    image: "https://github.com/user-attachments/assets/5d4c5ef1-a7ee-443d-810b-09c1aa90977e", // 향수 이미지 (9번)
     tags: ["For You", "Vegan"],
     notes: "탑: 블랙 페퍼, 베르가못 / 미들: 로즈, 백합 / 베이스: 침향(Oud), 앰버",
     family: "우디 오리엔탈",
@@ -24,7 +24,7 @@ export const products = [
     brand: "Persona L",
     price: "₩320,000",
     size: "100 ML",
-    image: "https://github.com/user-attachments/assets/1dcd2cd9-baa1-4386-bfc6-e1e8f5378186",
+    image: "https://github.com/user-attachments/assets/1dcd2cd9-baa1-4386-bfc6-e1e8f5378186", // 향수 이미지 (10번)
     tags: ["For You", "Eco"],
     notes: "탑: 사프란, 시나몬 / 미들: 앰버, 바닐라 / 베이스: 샌달우드, 머스크",
     family: "오리엔탈 스파이시",
@@ -36,7 +36,7 @@ export const products = [
     brand: "Persona L",
     price: "₩265,000",
     size: "50 ML",
-    image: "https://github.com/user-attachments/assets/943ee401-aaf0-40cc-be6d-9f3e088434a1",
+    image: "https://github.com/user-attachments/assets/943ee401-aaf0-40cc-be6d-9f3e088434a1", // 향수 이미지 (11번)
     tags: ["For You"],
     notes: "탑: 아이리스, 갈바넘 / 미들: 파출리, 베티버 / 베이스: 인센스, 화이트 머스크",
     family: "파우더리 플로랄",
@@ -49,7 +49,7 @@ export const products = [
     brand: "Persona L",
     price: "₩295,000",
     size: "100 ML",
-    image: "https://github.com/user-attachments/assets/c29216a4-306f-449e-a5ed-94c890196655",
+    image: "https://github.com/user-attachments/assets/c29216a4-306f-449e-a5ed-94c890196655", // 향수 이미지 (12번)
     tags: ["Vegan", "Eco"],
     notes: "탑: 화이트 티, 베르가못 / 미들: 목련, 캐시미어 / 베이스: 화이트 머스크, 시더우드",
     family: "플로랄 프레시",
@@ -61,7 +61,7 @@ export const products = [
     brand: "Persona L",
     price: "₩195,000",
     size: "50 ML",
-    image: "https://github.com/user-attachments/assets/1512af21-6ab3-4700-93c8-188682843654",
+    image: "https://github.com/user-attachments/assets/1512af21-6ab3-4700-93c8-188682843654", // 향수 이미지 (13번)
     tags: ["Eco"],
     notes: "탑: 레몬, 페퍼민트 / 미들: 그린 티, 바질 / 베이스: 시더우드, 베티버",
     family: "시트러스 허벌",
@@ -73,7 +73,7 @@ export const products = [
     brand: "Persona L",
     price: "₩245,000",
     size: "50 ML",
-    image: "https://github.com/user-attachments/assets/d28daa39-8231-4997-a12b-4d6980c70473",
+    image: "https://github.com/user-attachments/assets/d28daa39-8231-4997-a12b-4d6980c70473", // 향수 이미지 (14번)
     tags: ["For You"],
     notes: "탑: 핑크 페퍼, 알데하이드 / 미들: 로즈, 아이리스 / 베이스: 스킨 머스크, 샌달우드",
     family: "머스크 파우더리",
@@ -85,7 +85,7 @@ export const products = [
     brand: "Persona L",
     price: "₩310,000",
     size: "100 ML",
-    image: "https://github.com/user-attachments/assets/b4a6280a-7608-437b-9b6e-0461189b3b96",
+    image: "https://github.com/user-attachments/assets/b4a6280a-7608-437b-9b6e-0461189b3b96", // 향수 이미지 (15번)
     tags: ["For You", "Vegan"],
     notes: "탑: 블랙 페퍼, 레더 / 미들: 시더우드, 파피루스 / 베이스: 앰버, 파출리",
     family: "레더 우디",
@@ -97,7 +97,7 @@ export const products = [
     brand: "Persona L",
     price: "₩215,000",
     size: "100 ML",
-    image: "https://github.com/user-attachments/assets/7af9f3db-b41a-4dcb-9e81-b7b140c0b668",
+    image: "https://github.com/user-attachments/assets/7af9f3db-b41a-4dcb-9e81-b7b140c0b668", // 향수 이미지 (16번)
     tags: ["Vegan", "Eco"],
     notes: "탑: 클라리 세이지, 베르가못 / 미들: 라벤더, 로즈마리 / 베이스: 오크모스, 머스크",
     family: "아로마틱 푸제르",
@@ -109,7 +109,7 @@ export const products = [
     brand: "Persona L Home",
     price: "₩145,000",
     size: "250 ML",
-    image: "https://github.com/user-attachments/assets/027e55d5-14d5-40ba-8d75-cd6c4ac801ea",
+    image: "https://github.com/user-attachments/assets/027e55d5-14d5-40ba-8d75-cd6c4ac801ea", // 디퓨저 이미지 (1번)
     tags: ["Space", "For You", "Vegan"],
     notes: "샌달우드의 따뜻한 질감과 베르가못의 싱그러움이 어우러진 깊은 안식의 향",
     family: "우디 시트러스",
@@ -122,7 +122,7 @@ export const products = [
     brand: "Persona L Home",
     price: "₩85,000",
     size: "200 G",
-    image: "https://github.com/user-attachments/assets/1c163ba8-320b-4d25-80fc-6c2f61a44323",
+    image: "https://github.com/user-attachments/assets/1c163ba8-320b-4d25-80fc-6c2f61a44323", // 디퓨저 이미지 (2번)
     tags: ["Space", "Eco"],
     notes: "신성한 나무 팔로산토의 연기 향과 밝은 베르가못이 만드는 정화의 시간",
     family: "우디 시트러스",
@@ -134,7 +134,7 @@ export const products = [
     brand: "Persona L Home",
     price: "₩165,000",
     size: "250 ML",
-    image: "https://github.com/user-attachments/assets/681b7e90-2a76-4719-b7f0-78902566f68b",
+    image: "https://github.com/user-attachments/assets/681b7e90-2a76-4719-b7f0-78902566f68b", // 디퓨저 이미지 (3번)
     tags: ["Space", "Vegan"],
     notes: "침향(Oud)의 묵직한 무게감과 앰버의 황금빛 온기가 선사하는 압도적인 아우라",
     family: "우디 오리엔탈",
@@ -146,10 +146,58 @@ export const products = [
     brand: "Persona L Home",
     price: "₩155,000",
     size: "250 ML",
-    image: "https://github.com/user-attachments/assets/1a7300d2-f569-4339-9dee-b107adecdb91",
+    image: "https://github.com/user-attachments/assets/1a7300d2-f569-4339-9dee-b107adecdb91", // 디퓨저 이미지 (4번)
     tags: ["Space", "For You"],
     notes: "부드러운 샌달우드 베이스에 달콤한 앰버를 더해 공간을 포근하게 감싸는 향",
     family: "우디 오리엔탈",
+    category: "Space",
+  },
+  {
+    id: 13,
+    name: "WHITE MUSK & LILY",
+    brand: "Persona L Home",
+    price: "₩135,000",
+    size: "250 ML",
+    image: "https://github.com/user-attachments/assets/c9950bcd-dc5d-49c9-8153-5e8ac3299158", // 디퓨저 이미지 (5번)
+    tags: ["Space", "Vegan"],
+    notes: "깨끗한 화이트 머스크와 순수한 백합이 만드는 맑고 투명한 공간의 분위기",
+    family: "플로랄 머스크",
+    category: "Space",
+  },
+  {
+    id: 14,
+    name: "CEDARWOOD & PINE",
+    brand: "Persona L Home",
+    price: "₩145,000",
+    size: "250 ML",
+    image: "https://github.com/user-attachments/assets/2e07988e-0fb2-4725-8780-28f6f52205bb", // 디퓨저 이미지 (6번)
+    tags: ["Space", "Eco"],
+    notes: "깊은 숲속의 고요함을 닮은 시더우드와 상쾌한 솔잎 향의 조화",
+    family: "우디 프레시",
+    category: "Space",
+  },
+  {
+    id: 15,
+    name: "GREEN TEA & FIG",
+    brand: "Persona L Home",
+    price: "₩125,000",
+    size: "250 ML",
+    image: "https://github.com/user-attachments/assets/063c8ab0-9dc6-45ca-8e30-1db0f9b1633a", // 디퓨저 이미지 (7번)
+    tags: ["Space", "Vegan"],
+    notes: "쌉싸름한 녹차 잎과 달콤한 무화과가 어우러진 평온한 오후의 향기",
+    family: "그린 플로랄",
+    category: "Space",
+  },
+  {
+    id: 16,
+    name: "NEROLI & JASMINE",
+    brand: "Persona L Home",
+    price: "₩155,000",
+    size: "250 ML",
+    image: "https://github.com/user-attachments/assets/5b34f7db-2991-4af2-a20e-80f99f6cef67", // 디퓨저 이미지 (8번)
+    tags: ["Space", "For You"],
+    notes: "찬란한 햇살을 머금은 네롤리와 관능적인 자스민이 만드는 화사한 정원",
+    family: "플로랄 시트러스",
     category: "Space",
   },
 ];

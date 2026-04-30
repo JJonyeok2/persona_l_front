@@ -53,7 +53,7 @@ export default function HeroSection() {
         href="#interview"
         className="absolute bottom-6 right-6 md:bottom-8 md:right-8 group z-20"
       >
-        <div className="bg-wood/40 backdrop-blur-md p-4 md:p-5 w-[240px] sm:w-[280px] md:w-[320px] border border-cream/10 shadow-2xl hover:shadow-editorial transition-all duration-400 hover:-translate-y-1">
+        <div className="bg-wood/40 backdrop-blur-md p-4 md:p-5 w-[calc(100vw-48px)] sm:w-[300px] md:w-[340px] max-w-[340px] border border-cream/10 shadow-2xl hover:shadow-editorial transition-all duration-400 hover:-translate-y-1">
           <div className="flex gap-3 sm:gap-4">
             {/* 카드 내 썸네일 이미지 */}
             <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-cream/10 flex-shrink-0 overflow-hidden">
@@ -69,8 +69,9 @@ export default function HeroSection() {
                 <p className="text-[9px] sm:text-[10px] font-medium uppercase tracking-widest text-cream/60 mb-1">
                   Private Consultation
                 </p>
-                <p className="text-[12px] sm:text-sm font-medium leading-snug text-cream break-keep">
-                  당신의 스타일과 공간의 무드를 후각적 언어로 번역해 드립니다
+                <p className="text-[13px] sm:text-sm font-medium leading-snug text-cream break-keep">
+                  당신의 스타일과 공간의 무드를 <br className="hidden sm:inline" /> 
+                  후각적 언어로 번역해 드립니다
                 </p>
               </div>
               {/* 시작하기 링크 버튼 */}
@@ -87,7 +88,7 @@ export default function HeroSection() {
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-10">
         <span className="text-[9px] uppercase tracking-[0.3em] text-cream/40">Scroll</span>
         <div className="w-px h-10 bg-cream/30 overflow-hidden">
-          {/* 수직으로 박동하는 애니메이션 라인 */}
+          {/* 애니메이션 라인 */}
           <div className="w-full h-full bg-cream origin-top animate-pulse-line" />
         </div>
       </div>

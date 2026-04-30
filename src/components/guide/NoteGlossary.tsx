@@ -24,7 +24,7 @@ export default function NoteGlossary() {
         {scentNotes.map((note: ScentNote) => (
           <div
             key={note.enName}
-            className="group relative h-32 md:h-40 bg-white/40 border border-wood/5 rounded-sm p-5 cursor-help transition-all duration-500 hover:bg-wood hover:shadow-xl"
+            className="group relative h-40 md:h-48 bg-white/40 border border-wood/5 rounded-sm p-5 cursor-help transition-all duration-500 hover:bg-wood hover:shadow-xl overflow-hidden"
             onMouseEnter={() => setHoveredNote(note.enName)}
             onMouseLeave={() => setHoveredNote(null)}
           >
@@ -32,19 +32,19 @@ export default function NoteGlossary() {
             <div className={`flex flex-col justify-between h-full transition-opacity duration-300 ${hoveredNote === note.enName ? 'opacity-0' : 'opacity-100'}`}>
               <span className="text-[10px] uppercase tracking-widest text-wood/40">{note.category} Note</span>
               <div>
-                <h4 className="text-lg font-medium text-wood">{note.name}</h4>
-                <p className="text-[11px] text-wood/30 uppercase tracking-tighter">{note.enName}</p>
+                <h4 className="text-base md:text-lg font-medium text-wood">{note.name}</h4>
+                <p className="text-[10px] md:text-[11px] text-wood/30 uppercase tracking-tighter">{note.enName}</p>
               </div>
             </div>
 
             {/* 호버 시 노출: 상세 설명 */}
-            <div className={`absolute inset-0 p-5 flex flex-col justify-center transition-all duration-500 ${hoveredNote === note.enName ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}>
-              <p className="text-[12px] leading-relaxed text-cream/90 break-keep mb-3">
+            <div className={`absolute inset-0 p-5 md:p-6 flex flex-col justify-center transition-all duration-500 ${hoveredNote === note.enName ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}>
+              <p className="text-[11.5px] md:text-[13px] leading-relaxed text-cream/90 break-keep mb-3">
                 {note.description}
               </p>
               <div className="pt-3 border-t border-cream/10">
-                <p className="text-[9px] uppercase tracking-widest text-cream/40 mb-1">Origin</p>
-                <p className="text-[10px] text-cream/60 truncate">{note.origin}</p>
+                <p className="text-[9px] uppercase tracking-widest text-cream/40 mb-0.5">Origin</p>
+                <p className="text-[10px] text-cream/60 break-words line-clamp-1">{note.origin}</p>
               </div>
             </div>
           </div>

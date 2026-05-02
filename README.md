@@ -6,6 +6,11 @@
 
 ---
 
+## 🔗 Live Demo
+**[https://persona-l-front.vercel.app/](https://persona-l-front.vercel.app/)**
+
+---
+
 ## 🚀 프로젝트 개요
 Persona L은 단순히 향수를 판매하는 것을 넘어, 사용자의 내면(Persona)을 탐구하고 이를 감각적인 경험으로 연결합니다. 세련된 인터페이스와 부드러운 애니메이션을 통해 프리미엄한 브랜드 경험을 제공합니다.
 

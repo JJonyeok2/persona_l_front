@@ -333,4 +333,156 @@ export const products: Product[] = [
       bestFor: "채광이 좋은 거실이나 주방 등 활기찬 에너지가 필요한 곳"
     }
   },
+  {
+    id: 17,
+    name: "AZURE WAVE",
+    brand: "Persona L",
+    price: "₩215,000",
+    size: "100 ML",
+    image: "https://github.com/user-attachments/assets/5b34f7db-2991-4af2-a20e-80f99f6cef67",
+    tags: ["Vegan"],
+    notes: "지중해의 푸른 파도와 소금기 머금은 시원한 바다 바람",
+    family: "아쿠아틱 마린",
+    category: "Personal",
+    details: {
+      story: "끝없이 펼쳐진 수평선을 바라보며 느끼는 자유로움을 담았습니다. 시원한 마린 노트가 일상의 답답함을 깨끗하게 씻어내 줍니다.",
+      topNotes: "씨 솔트, 자몽, 네롤리",
+      middleNotes: "로즈마리, 세이지, 해조류",
+      baseNotes: "암브록산, 시더우드, 머스크",
+      bestFor: "한여름의 화이트 린넨 셔츠 룩이나 휴양지에서의 여유로운 오후"
+    }
+  },
+  {
+    id: 18,
+    name: "VELVET FIG",
+    brand: "Persona L",
+    price: "₩255,000",
+    size: "50 ML",
+    image: "https://github.com/user-attachments/assets/027e55d5-14d5-40ba-8d75-cd6c4ac801ea",
+    tags: ["For You", "Eco"],
+    notes: "잘 익은 무화과의 달콤함과 잎사귀의 쌉싸름한 그린 노트",
+    family: "프루티 우디",
+    category: "Personal",
+    details: {
+      story: "무화과 나무 아래서 느끼는 오후의 나른함을 표현했습니다. 과육의 달콤함과 나무껍질의 거친 질감이 오묘한 조화를 이룹니다.",
+      topNotes: "무화과 잎, 핑크 페퍼",
+      middleNotes: "무화과 과육, 아이리스, 코코넛",
+      baseNotes: "시더우드, 샌달우드, 통카빈",
+      bestFor: "세련되면서도 흔하지 않은 나만의 개성을 드러내고 싶을 때"
+    }
+  },
+  {
+    id: 19,
+    name: "MORNING MOSS",
+    brand: "Persona L",
+    price: "₩230,000",
+    size: "100 ML",
+    image: "https://github.com/user-attachments/assets/7af9f3db-b41a-4dcb-9e81-b7b140c0b668",
+    tags: ["Eco", "Vegan"],
+    notes: "비 온 뒤 숲속의 젖은 흙과 이끼가 만드는 원초적인 생명력",
+    family: "그린 어시",
+    category: "Personal",
+    details: {
+      story: "이른 아침, 아무도 밟지 않은 숲길을 걷는 듯한 신선한 충격을 줍니다. 자연의 날것 그대로의 향기가 마음의 안정을 찾아줍니다.",
+      topNotes: "갈바넘, 베르가못",
+      middleNotes: "바이올렛 잎, 자스민, 제라늄",
+      baseNotes: "오크모스, 파출리, 베티버",
+      bestFor: "비 오는 날의 차분한 분위기나 자연주의 라이프스타일을 추구하는 분"
+    }
+  },
+  {
+    id: 20,
+    name: "SPICED VANILLA",
+    brand: "Persona L",
+    price: "₩275,000",
+    size: "50 ML",
+    image: "https://github.com/user-attachments/assets/1dcd2cd9-baa1-4386-bfc6-e1e8f5378186",
+    tags: ["For You"],
+    notes: "관능적인 바닐라와 시나몬 스파이스가 빚어내는 포근한 온기",
+    family: "구르망 스파이시",
+    category: "Personal",
+    details: {
+      story: "따뜻한 벽난로 옆에서 마시는 향기로운 차 한 잔의 여유를 담았습니다. 달콤하면서도 알싸한 향기가 당신을 부드럽게 감싸 안습니다.",
+      topNotes: "시나몬, 카다멈, 정향",
+      middleNotes: "바닐라 빈, 헬리오트로프",
+      baseNotes: "벤조인, 화이트 머스크, 캐시미어 우드",
+      bestFor: "쌀쌀한 가을과 겨울, 오버사이즈 코트와 함께 연출하는 포근한 무드"
+    }
+  },
+  {
+    id: 21,
+    name: "MIDNIGHT JASMINE",
+    brand: "Persona L Home",
+    price: "₩135,000",
+    size: "250 ML",
+    image: "https://github.com/user-attachments/assets/943ee401-aaf0-40cc-be6d-9f3e088434a1",
+    tags: ["Space", "Vegan"],
+    notes: "어둠이 내린 정원에서 피어나는 자스민의 은밀하고 매혹적인 향",
+    family: "화이트 플로랄",
+    category: "Space",
+    details: {
+      story: "밤에만 꽃을 피우는 자스민의 고혹적인 향기를 공간에 채워보세요. 일상의 평범한 공간이 순식간에 비밀스러운 정원으로 변모합니다.",
+      topNotes: "일랑일랑, 베르가못",
+      middleNotes: "자스민 삼박, 튜베로즈",
+      baseNotes: "화이트 머스크, 앰버",
+      bestFor: "침실이나 욕실 등 프라이빗하고 로맨틱한 분위기가 필요한 공간"
+    }
+  },
+  {
+    id: 22,
+    name: "LEATHER & OUD",
+    brand: "Persona L Home",
+    price: "₩175,000",
+    size: "200 G",
+    image: "https://github.com/user-attachments/assets/b4a6280a-7608-437b-9b6e-0461189b3b96",
+    tags: ["Space", "For You"],
+    notes: "묵직한 가죽의 질감과 귀한 침향이 만드는 압도적인 무게감",
+    family: "레더 오리엔탈",
+    category: "Space",
+    details: {
+      story: "클래식한 서재나 가죽 소파가 있는 거실에 완벽하게 어울립니다. 시간이 멈춘 듯한 고요함과 중후한 멋을 공간에 선사합니다.",
+      topNotes: "사프란, 블랙 페퍼",
+      middleNotes: "레더 어코드, 로즈우드",
+      baseNotes: "오드(Oud), 파출리, 샌달우드",
+      bestFor: "지적이고 권위 있는 분위기를 연출하고 싶은 오피스나 서재"
+    }
+  },
+  {
+    id: 23,
+    name: "CASSIS GARDEN",
+    brand: "Persona L Home",
+    price: "₩145,000",
+    size: "250 ML",
+    image: "https://github.com/user-attachments/assets/c29216a4-306f-449e-a5ed-94c890196655",
+    tags: ["Space", "Eco"],
+    notes: "블랙커런트 잎의 싱그러움과 장미 정원의 우아한 조화",
+    family: "프루티 플로랄",
+    category: "Space",
+    details: {
+      story: "강가 옆의 푸른 정원을 걷는 듯한 생동감을 줍니다. 상큼한 블랙커런트와 우아한 장미 향이 조화롭게 섞여 공간을 화사하게 만듭니다.",
+      topNotes: "블랙커런트 잎, 베르가못",
+      middleNotes: "불가리안 로즈, 제라늄",
+      baseNotes: "머스크, 시더우드",
+      bestFor: "가족들이 모이는 거실이나 활기찬 아침을 맞이하는 주방"
+    }
+  },
+  {
+    id: 24,
+    name: "TOBACCO & HONEY",
+    brand: "Persona L Home",
+    price: "₩165,000",
+    size: "250 ML",
+    image: "https://github.com/user-attachments/assets/681b7e90-2a76-4719-b7f0-78902566f68b",
+    tags: ["Space", "Vegan"],
+    notes: "쌉싸름한 타바코 잎과 달콤한 꿀이 만드는 짙은 잔향",
+    family: "오리엔탈 구르망",
+    category: "Space",
+    details: {
+      story: "달콤함과 쌉싸름함이 공존하는 양면적인 매력을 가졌습니다. 공간에 깊이감을 더해주며 잊히지 않는 강렬한 인상을 남깁니다.",
+      topNotes: "허니, 진저",
+      middleNotes: "타바코 잎, 아이리스",
+      baseNotes: "바닐라, 카카오, 우디 노트",
+      bestFor: "라운지 바처럼 세련되고 힙한 무드를 원하는 공간"
+    }
+  },
 ];

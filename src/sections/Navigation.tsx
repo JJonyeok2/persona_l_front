@@ -4,7 +4,7 @@
  * 스크롤 위치에 따른 헤더 디자인 변경 및 모바일 대응 메뉴 기능을 포함합니다.
  */
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X, Search, Heart } from "lucide-react";
 import { useIsScrolled } from "@/hooks/useIntersectionObserver";
 
@@ -14,6 +14,14 @@ export default function Navigation() {
   
   // 전체 화면 메뉴의 열림/닫힘 상태 관리
   const [menuOpen, setMenuOpen] = useState(false);
+
+  // 워터마킹: 개발자 도구 콘솔에 시그니처 출력
+  useEffect(() => {
+    console.log(
+      "%cPersona L - Authored by JJonyeok (2026)",
+      "color: #4A3E3E; font-size: 12px; font-weight: bold; border-left: 3px solid #4A3E3E; padding-left: 10px;"
+    );
+  }, []);
 
   // 네비게이션 메뉴 링크 데이터
   const navLinks = [
@@ -61,10 +69,12 @@ export default function Navigation() {
           {/* 중앙 영역: 로고 */}
           <a
             href="#"
+            data-author="jjonyeok"
             className={`absolute left-1/2 -translate-x-1/2 text-sm md:text-base font-light tracking-[0.3em] uppercase transition-all duration-500 ${
               isScrolled ? "text-wood" : "text-cream"
             }`}
           >
+            {/* P-L-ID: 2026-JJY-SIGN */}
             Persona L
           </a>
 

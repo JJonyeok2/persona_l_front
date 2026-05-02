@@ -25,10 +25,10 @@ export default function LayeringRecipe({ fashionStyle }: LayeringRecipeProps) {
             {/* 메인 향수 (Base) */}
             <div className="text-center">
               <div className="aspect-[3/4] w-24 sm:w-32 md:w-40 mx-auto bg-cream mb-4 sm:mb-6 overflow-hidden">
-                <img src="/product_1.jpg" alt="Main Scent" className="w-full h-full object-cover mix-blend-multiply opacity-80" />
+                <img src="https://github.com/user-attachments/assets/5d4c5ef1-a7ee-443d-810b-09c1aa90977e" alt="Main Scent" className="w-full h-full object-cover mix-blend-multiply opacity-80" />
               </div>
               <p className="text-[9px] uppercase tracking-widest text-wood/40 mb-1">Main</p>
-              <h4 className="text-sm sm:text-base md:text-lg font-medium line-clamp-1">Noir Absolu</h4>
+              <h4 className="text-sm sm:text-base md:text-lg font-medium line-clamp-1">Ambre Noir</h4>
             </div>
 
             <Plus className="text-wood/20 flex-shrink-0" size={20} strokeWidth={1} />
@@ -36,7 +36,7 @@ export default function LayeringRecipe({ fashionStyle }: LayeringRecipeProps) {
             {/* 레이어링 액센트 (Accent) */}
             <div className="text-center">
               <div className="aspect-[3/4] w-24 sm:w-32 md:w-40 mx-auto bg-cream mb-4 sm:mb-6 overflow-hidden">
-                <img src="/product_2.jpg" alt="Accent Scent" className="w-full h-full object-cover mix-blend-multiply opacity-80" />
+                <img src="https://github.com/user-attachments/assets/1512af21-6ab3-4700-93c8-188682843654" alt="Accent Scent" className="w-full h-full object-cover mix-blend-multiply opacity-80" />
               </div>
               <p className="text-[9px] uppercase tracking-widest text-wood/40 mb-1">Accent</p>
               <h4 className="text-sm sm:text-base md:text-lg font-medium line-clamp-1">Verde Breeze</h4>

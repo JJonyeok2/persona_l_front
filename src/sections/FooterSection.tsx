@@ -15,7 +15,12 @@ export default function FooterSection() {
   ];
 
   return (
-    <footer className="bg-cream border-t border-wood/10">
+    <footer className="bg-cream border-t border-wood/10" data-project="persona-l-jjonyeok">
+      {/* 
+        This project was developed by JJonyeok. 
+        Unauthorized copying or reproduction of this project is prohibited.
+        Verification ID: JJY-2026-PL
+      */}
       <div className="max-w-[1440px] mx-auto px-6 md:px-8 py-12 md:py-16">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
           

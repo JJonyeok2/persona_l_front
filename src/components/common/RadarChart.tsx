@@ -9,13 +9,18 @@ import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { radarData } from "@/data/reportData";
 
 interface RadarChartProps {
+  /** 인터뷰 결과 데이터 (축 이름과 0~1 사이의 수치 리스트) */
+  data?: { axis: string; value: number }[];
   /** 인터뷰 결과가 즉시 로드될 때 애니메이션을 강제로 트리거할지 여부 */
   forceDraw?: boolean;
 }
 
-export default function RadarChart({ forceDraw }: RadarChartProps) {
+export default function RadarChart({ data, forceDraw }: RadarChartProps) {
   const { ref, isVisible } = useIntersectionObserver();
   const [drawn, setDrawn] = useState(false);
+
+  // 전달된 데이터가 없으면 기본 정적 데이터 사용
+  const chartData = data || radarData;
 
   useEffect(() => {
     if (isVisible || forceDraw) {
@@ -27,7 +32,7 @@ export default function RadarChart({ forceDraw }: RadarChartProps) {
   const size = 300; // 기준 좌표 크기 (viewBox용)
   const center = size / 2;
   const radius = 100;
-  const angleStep = (Math.PI * 2) / radarData.length;
+  const angleStep = (Math.PI * 2) / chartData.length;
 
   const getPoint = (i: number, value: number) => {
     const angle = i * angleStep - Math.PI / 2;
@@ -37,7 +42,7 @@ export default function RadarChart({ forceDraw }: RadarChartProps) {
     };
   };
 
-  const polygonPoints = radarData
+  const polygonPoints = chartData
     .map((d, i) => {
       const p = getPoint(i, d.value);
       return `${p.x},${p.y}`;
@@ -60,7 +65,7 @@ export default function RadarChart({ forceDraw }: RadarChartProps) {
           />
         ))}
         {/* 축 라인들 */}
-        {radarData.map((_, i) => {
+        {chartData.map((_, i) => {
           const p = getPoint(i, 1);
           return (
             <line
@@ -84,7 +89,7 @@ export default function RadarChart({ forceDraw }: RadarChartProps) {
           style={{ transitionTimingFunction: "cubic-bezier(0.25, 0.46, 0.45, 0.94)" }}
         />
         {/* 각 꼭짓점 데이터 포인트 */}
-        {radarData.map((d, i) => {
+        {chartData.map((d, i) => {
           const p = getPoint(i, d.value);
           return (
             <circle
@@ -99,7 +104,7 @@ export default function RadarChart({ forceDraw }: RadarChartProps) {
           );
         })}
         {/* 축 라벨 */}
-        {radarData.map((d, i) => {
+        {chartData.map((d, i) => {
           const p = getPoint(i, 1.25);
           return (
             <text

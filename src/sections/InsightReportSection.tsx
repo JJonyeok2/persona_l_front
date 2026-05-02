@@ -31,6 +31,54 @@ export default function InsightReportSection({ results }: { results?: any }) {
     "미니멀한 가구 배치 → 여백의 미를 완성하는 투명한 오조닉 노트",
   ] : [];
 
+  // 인터뷰 결과에 따른 레이더 차트 데이터 동적 계산
+  const getDynamicRadarData = () => {
+    if (!results) return radarData;
+
+    // 기본값 복사
+    const baseData = [
+      { axis: "플로랄", value: 0.2 },
+      { axis: "우디", value: 0.2 },
+      { axis: "오리엔탈", value: 0.2 },
+      { axis: "프레시", value: 0.2 },
+      { axis: "구르망", value: 0.2 },
+    ];
+
+    if (results.type === "personal") {
+      // Mood mapping
+      if (results.personalMood.includes("로맨틱")) baseData[0].value += 0.5;
+      if (results.personalMood.includes("단정한")) baseData[1].value += 0.4;
+      if (results.personalMood.includes("자유로운")) baseData[3].value += 0.5;
+      if (results.personalMood.includes("시그니처")) baseData[2].value += 0.5;
+
+      // Fashion mapping
+      if (results.fashionStyle.includes("미니멀")) { baseData[1].value += 0.3; baseData[3].value += 0.2; }
+      if (results.fashionStyle.includes("고프코어")) { baseData[3].value += 0.4; baseData[1].value += 0.2; }
+      if (results.fashionStyle.includes("빈티지")) { baseData[2].value += 0.4; baseData[1].value += 0.2; }
+      if (results.fashionStyle.includes("아방가르드")) { baseData[4].value += 0.5; baseData[2].value += 0.2; }
+    } else if (results.type === "space") {
+      // Color mapping
+      if (results.spaceColor.includes("화이트")) baseData[3].value += 0.4;
+      if (results.spaceColor.includes("우드")) baseData[1].value += 0.5;
+      if (results.spaceColor.includes("블랙")) baseData[2].value += 0.5;
+      if (results.spaceColor.includes("컬러포인트")) baseData[0].value += 0.4;
+
+      // Texture mapping
+      if (results.spaceTexture.includes("원목")) baseData[1].value += 0.3;
+      if (results.spaceTexture.includes("금속")) baseData[3].value += 0.3;
+      if (results.spaceTexture.includes("패브릭")) baseData[0].value += 0.3;
+      if (results.spaceTexture.includes("스톤")) baseData[2].value += 0.3;
+    }
+
+    // 값 제한 (0.1 ~ 0.95)
+    return baseData.map(d => ({
+      ...d,
+      value: Math.max(0.1, Math.min(0.95, d.value + (Math.random() * 0.1))) // 약간의 랜덤성 추가
+    }));
+  };
+
+  const currentRadarData = getDynamicRadarData();
+
   // 텍스트 내의 <br/> 태그를 실제 줄바꿈으로 변환하여 렌더링하는 헬퍼
   const renderText = (text: string) => {
     return text.split("<br/>").map((line, i) => (
@@ -82,9 +130,9 @@ export default function InsightReportSection({ results }: { results?: any }) {
                     <p className="text-[11px] font-medium uppercase tracking-widest text-wood/40 mb-12 text-center">
                       Olfactory Silhouette
                     </p>
-                    <RadarChart forceDraw={!!results} />
+                    <RadarChart data={currentRadarData} forceDraw={!!results} />
                     <div className="flex justify-center gap-6 sm:gap-8 mt-12">
-                      {radarData.map((d) => (
+                      {currentRadarData.map((d) => (
                         <div key={d.axis} className="text-center">
                           <p className="text-base sm:text-lg font-light text-wood">{Math.round(d.value * 100)}%</p>
                           <p className="text-[9px] sm:text-[10px] uppercase tracking-widest text-wood/40 mt-1">{d.axis}</p>

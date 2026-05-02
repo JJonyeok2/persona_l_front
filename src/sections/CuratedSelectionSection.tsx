@@ -10,11 +10,12 @@ import ProductCard from "@/components/curated/ProductCard";
 import ProductModal from "@/components/curated/ProductModal";
 import { products } from "@/data/productData";
 import type { Product } from "@/data/productData";
+import type { AnalysisResults } from "@/types";
 
 const filters = ["All", "For You", "Vegan", "Eco"] as const;
 type Filter = (typeof filters)[number];
 
-export default function CuratedSelectionSection({ results }: { results?: any }) {
+export default function CuratedSelectionSection({ results }: { results: AnalysisResults | null }) {
   const { ref, isVisible } = useIntersectionObserver();
   const [activeCategory, setActiveCategory] = useState<"Personal" | "Space">("Personal");
   const [activeFilter, setActiveFilter] = useState<Filter>("All");
@@ -26,7 +27,7 @@ export default function CuratedSelectionSection({ results }: { results?: any }) 
       setActiveCategory(targetCat as "Personal" | "Space");
       setActiveFilter("For You");
     }
-  }, [results]);
+  }, [results?.type]);
 
   const handleCategoryChange = (cat: "Personal" | "Space") => {
     setActiveCategory(cat);
@@ -37,7 +38,7 @@ export default function CuratedSelectionSection({ results }: { results?: any }) 
   const filtered =
     activeFilter === "All"
       ? categoryFiltered
-      : categoryFiltered.filter((p) => p.tags.includes(activeFilter as any));
+      : categoryFiltered.filter((p) => p.tags.includes(activeFilter as string));
 
   return (
     <section id="curated" className="bg-[#F7F7F7] py-24 md:py-40">

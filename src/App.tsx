@@ -15,9 +15,11 @@ import CuratedSelectionSection from "@/sections/CuratedSelectionSection";
 import SafetyValuesSection from "@/sections/SafetyValuesSection";
 import FooterSection from "@/sections/FooterSection";
 
+import type { AnalysisResults } from "@/types";
+
 export default function App() {
   // 인터뷰 결과를 저장할 상태
-  const [analysisResults, setAnalysisResults] = useState<any>(null);
+  const [analysisResults, setAnalysisResults] = useState<AnalysisResults | null>(null);
 
   return (
     /**
@@ -43,7 +45,7 @@ export default function App() {
         <ScentGuideSection />
         
         {/* AI 인터뷰 섹션: 사용자 취향 분석을 위한 인터랙티브 채팅 */}
-        <AIInterviewSection onComplete={(results: any) => setAnalysisResults(results)} />
+        <AIInterviewSection onComplete={(results: AnalysisResults) => setAnalysisResults(results)} />
         
         {/* 분석 리포트 섹션: 인터뷰 결과에 따른 개인화된 분석 결과 */}
         <InsightReportSection results={analysisResults} />

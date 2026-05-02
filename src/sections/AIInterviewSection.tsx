@@ -8,6 +8,7 @@ import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { Send, Sparkles } from "lucide-react";
 import ChatMessage from "@/components/interview/ChatMessage";
 import { interviewFlows } from "@/data/interviewData";
+import type { AnalysisResults } from "@/types";
 
 type Message = {
   id: string;
@@ -16,7 +17,7 @@ type Message = {
   options?: string[];
 };
 
-export default function AIInterviewSection({ onComplete }: { onComplete?: (results: any) => void }) {
+export default function AIInterviewSection({ onComplete }: { onComplete?: (results: AnalysisResults) => void }) {
   const { ref, isVisible } = useIntersectionObserver();
   const [activeTrack, setActiveTrack] = useState<null | "personal" | "space">(null);
   const [userAnswers, setUserAnswers] = useState<string[]>([]);

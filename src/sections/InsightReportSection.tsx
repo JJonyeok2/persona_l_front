@@ -11,8 +11,9 @@ import { radarData } from "@/data/reportData";
 import { Download } from "lucide-react";
 import html2canvas from "html2canvas";
 import { useRef } from "react";
+import type { AnalysisResults } from "@/types";
 
-export default function InsightReportSection({ results }: { results?: any }) {
+export default function InsightReportSection({ results }: { results: AnalysisResults | null }) {
   const { ref: ref1, isVisible: vis1 } = useIntersectionObserver();
   const { ref: ref2, isVisible: vis2 } = useIntersectionObserver();
   const { ref: ref3, isVisible: vis3 } = useIntersectionObserver();
@@ -49,28 +50,32 @@ export default function InsightReportSection({ results }: { results?: any }) {
 
     if (results.type === "personal") {
       // Mood mapping
-      if (results.personalMood.includes("로맨틱")) baseData[0].value += 0.5;
-      if (results.personalMood.includes("단정한")) baseData[1].value += 0.4;
-      if (results.personalMood.includes("자유로운")) baseData[3].value += 0.5;
-      if (results.personalMood.includes("시그니처")) baseData[2].value += 0.5;
+      const mood = results.personalMood || "";
+      if (mood.includes("로맨틱")) baseData[0].value += 0.5;
+      if (mood.includes("단정한")) baseData[1].value += 0.4;
+      if (mood.includes("자유로운")) baseData[3].value += 0.5;
+      if (mood.includes("시그니처")) baseData[2].value += 0.5;
 
       // Fashion mapping
-      if (results.fashionStyle.includes("미니멀")) { baseData[1].value += 0.3; baseData[3].value += 0.2; }
-      if (results.fashionStyle.includes("고프코어")) { baseData[3].value += 0.4; baseData[1].value += 0.2; }
-      if (results.fashionStyle.includes("빈티지")) { baseData[2].value += 0.4; baseData[1].value += 0.2; }
-      if (results.fashionStyle.includes("아방가르드")) { baseData[4].value += 0.5; baseData[2].value += 0.2; }
+      const fashion = results.fashionStyle || "";
+      if (fashion.includes("미니멀")) { baseData[1].value += 0.3; baseData[3].value += 0.2; }
+      if (fashion.includes("고프코어")) { baseData[3].value += 0.4; baseData[1].value += 0.2; }
+      if (fashion.includes("빈티지")) { baseData[2].value += 0.4; baseData[1].value += 0.2; }
+      if (fashion.includes("아방가르드")) { baseData[4].value += 0.5; baseData[2].value += 0.2; }
     } else if (results.type === "space") {
       // Color mapping
-      if (results.spaceColor.includes("화이트")) baseData[3].value += 0.4;
-      if (results.spaceColor.includes("우드")) baseData[1].value += 0.5;
-      if (results.spaceColor.includes("블랙")) baseData[2].value += 0.5;
-      if (results.spaceColor.includes("컬러포인트")) baseData[0].value += 0.4;
+      const color = results.spaceColor || "";
+      if (color.includes("화이트")) baseData[3].value += 0.4;
+      if (color.includes("우드")) baseData[1].value += 0.5;
+      if (color.includes("블랙")) baseData[2].value += 0.5;
+      if (color.includes("컬러포인트")) baseData[0].value += 0.4;
 
       // Texture mapping
-      if (results.spaceTexture.includes("원목")) baseData[1].value += 0.3;
-      if (results.spaceTexture.includes("금속")) baseData[3].value += 0.3;
-      if (results.spaceTexture.includes("패브릭")) baseData[0].value += 0.3;
-      if (results.spaceTexture.includes("스톤")) baseData[2].value += 0.3;
+      const texture = results.spaceTexture || "";
+      if (texture.includes("원목")) baseData[1].value += 0.3;
+      if (texture.includes("금속")) baseData[3].value += 0.3;
+      if (texture.includes("패브릭")) baseData[0].value += 0.3;
+      if (texture.includes("스톤")) baseData[2].value += 0.3;
     }
 
     // 값 제한 (0.1 ~ 0.95)
@@ -223,7 +228,7 @@ export default function InsightReportSection({ results }: { results?: any }) {
                     </div>
                   </div>
 
-                  <LayeringRecipe fashionStyle={results.fashionStyle} />
+                  <LayeringRecipe fashionStyle={results.fashionStyle || "Minimal"} />
                 </div>
               )}
 

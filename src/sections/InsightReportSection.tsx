@@ -281,11 +281,11 @@ export default function InsightReportSection({ results }: { results?: any }) {
                     </div>
                   </div>
                 </div>
-              </div>
-              </div>
-              </>
               )}
-              </div>
-              </section>
+            </div>
+          </>
+        )}
+      </div>
+    </section>
   );
 }

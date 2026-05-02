@@ -7,8 +7,7 @@
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import RadarChart from "@/components/common/RadarChart";
 import LayeringRecipe from "@/components/report/LayeringRecipe";
-import SimilarAuras from "@/components/report/SimilarAuras";
-import { auras, radarData } from "@/data/reportData";
+import { radarData } from "@/data/reportData";
 import { Download } from "lucide-react";
 import html2canvas from "html2canvas";
 import { useRef } from "react";
@@ -282,13 +281,11 @@ export default function InsightReportSection({ results }: { results?: any }) {
                     </div>
                   </div>
                 </div>
+              </div>
+              </div>
+              </>
               )}
-            </div>
-
-            <SimilarAuras auras={auras} />
-          </>
-        )}
-      </div>
-    </section>
+              </div>
+              </section>
   );
 }

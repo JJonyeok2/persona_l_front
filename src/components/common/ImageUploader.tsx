@@ -95,7 +95,7 @@ export default function ImageUploader({ onImageProcessed, isAnalyzing }: ImageUp
           onDrop={handleDrop}
           onClick={() => fileInputRef.current?.click()}
           className={`relative aspect-video flex flex-col items-center justify-center border-2 border-dashed transition-all duration-300 cursor-pointer rounded-sm ${
-            isDragging ? "border-wood bg-wood/5" : "border-wood/10 bg-white/40 hover:bg-wood/5"
+            isDragging ? "border-wood bg-cream/20" : "border-cream/20 bg-white/10 hover:bg-white/20"
           }`}
         >
           <input
@@ -106,14 +106,14 @@ export default function ImageUploader({ onImageProcessed, isAnalyzing }: ImageUp
             className="hidden"
           />
           <div className="flex flex-col items-center gap-4">
-            <div className="w-12 h-12 rounded-full bg-wood/5 flex items-center justify-center">
-              <Upload className="text-wood/40 w-6 h-6" />
+            <div className="w-12 h-12 rounded-full bg-cream/10 flex items-center justify-center">
+              <Upload className="text-cream/60 w-6 h-6" />
             </div>
             <div className="text-center">
-              <p className="text-[13px] font-medium text-wood mb-1">
+              <p className="text-[13px] font-medium text-cream mb-1">
                 오늘의 스타일(OOTD) 사진을 업로드하세요
               </p>
-              <p className="text-[11px] text-wood/40 uppercase tracking-wider">
+              <p className="text-[11px] text-cream/40 uppercase tracking-wider">
                 Drag & Drop or Click to browse
               </p>
             </div>
@@ -123,17 +123,18 @@ export default function ImageUploader({ onImageProcessed, isAnalyzing }: ImageUp
         <div className="relative aspect-video bg-black/5 rounded-sm overflow-hidden group">
           <img src={preview} alt="Preview" className="w-full h-full object-cover" />
           
-          {/* 오버레이 컨트롤 */}
-          <div className="absolute inset-0 bg-wood/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
-            {!isAnalyzing && (
+          {/* 오버레이 컨트롤 (분석 중이 아닐 때만 삭제 버튼 노출) */}
+          {!isAnalyzing && (
+            <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
               <button
                 onClick={removeImage}
-                className="p-3 bg-cream text-wood rounded-full hover:scale-110 transition-transform"
+                className="p-3 bg-cream text-wood rounded-full hover:scale-110 shadow-lg transition-transform"
+                title="이미지 제거"
               >
                 <X size={20} />
               </button>
-            )}
-          </div>
+            </div>
+          )}
 
           {/* 분석 중 상태 표시 */}
           {isAnalyzing && (
@@ -147,8 +148,8 @@ export default function ImageUploader({ onImageProcessed, isAnalyzing }: ImageUp
       )}
       
       <div className="mt-6 flex items-start gap-3 px-2">
-        <ImageIcon size={14} className="text-wood/30 mt-0.5" />
-        <p className="text-[11px] text-wood/40 leading-relaxed break-keep">
+        <ImageIcon size={14} className="text-cream/30 mt-0.5" />
+        <p className="text-[11px] text-cream/40 leading-relaxed break-keep">
           정면 전신사진 혹은 의상의 질감과 색상이 잘 드러나는 사진일수록 더욱 정교한 분석이 가능합니다. 업로드된 이미지는 분석 즉시 경량화되어 안전하게 처리됩니다.
         </p>
       </div>

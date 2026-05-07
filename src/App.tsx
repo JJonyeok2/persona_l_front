@@ -4,7 +4,7 @@
  * 사이트의 전역 테마(배경색, 텍스트 색상)를 설정하고 각 섹션을 순서대로 배치합니다.
  */
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Navigation from "@/sections/Navigation";
 import HeroSection from "@/sections/HeroSection";
 import PhilosophySection from "@/sections/PhilosophySection";
@@ -28,20 +28,15 @@ export default function App() {
   const [selectedNotes, setSelectedNotes] = useState<string[]>([]);
   
   // 개인정보 동의 및 세션 상태 관리
-  const [hasConsented, setHasConsented] = useState<boolean>(false);
+  const [hasConsented, setHasConsented] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    const consented = localStorage.getItem("olfit_consent") === "true";
+    const sessionId = localStorage.getItem("olfit_session_id");
+    return !!(consented && sessionId);
+  });
 
   // 모달 관리를 위한 전역 상태
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-
-  useEffect(() => {
-    // 앱 로드 시 기존 동의 여부 및 세션 확인
-    const consented = localStorage.getItem("olfit_consent") === "true";
-    const sessionId = localStorage.getItem("olfit_session_id");
-    
-    if (consented && sessionId) {
-      setHasConsented(true);
-    }
-  }, []);
 
   const handleAgree = () => {
     // 고유 세션 ID 생성 (UUID v4 유사)

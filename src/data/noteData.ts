@@ -68,5 +68,47 @@ export const scentNotes: ScentNote[] = [
     category: "Base",
     description: "건조하고 깨끗한 연필 향. 숲속에 있는 듯한 지적이고 이성적인 느낌을 주며 향기의 골격을 튼튼하게 잡아줍니다.",
     origin: "북미 및 히말라야산 향나무"
+  },
+  {
+    name: "로즈",
+    enName: "Rose",
+    category: "Middle",
+    description: "화려하고 우아한 꽃의 여왕. 클래식한 로맨틱함부터 현대적인 시크함까지 다양한 매력을 지닌 절대적인 원료입니다.",
+    origin: "터키 및 불가리아산 장미"
+  },
+  {
+    name: "자스민",
+    enName: "Jasmine",
+    category: "Middle",
+    description: "관능적이고 풍성한 화이트 플로럴 향. 밤의 공기처럼 신비롭고 깊은 달콤함이 향기에 입체감을 더합니다.",
+    origin: "이집트 및 인도산 자스민 꽃"
+  },
+  {
+    name: "바닐라",
+    enName: "Vanilla",
+    category: "Base",
+    description: "달콤하고 부드러운 위로의 향. 포근한 안정감과 함께 고급스러운 미식가(Gourmand)적인 매력을 완성합니다.",
+    origin: "마다가스카르산 바닐라 빈"
+  },
+  {
+    name: "우드",
+    enName: "Oud",
+    category: "Base",
+    description: "침향나무에서 얻는 가장 진귀한 향료. 묵직하고 어두운 나무 향과 동물적인 관능미가 어우러진 신비로운 향입니다.",
+    origin: "동남아시아의 침향나무"
+  },
+  {
+    name: "핑크 페퍼",
+    enName: "Pink Pepper",
+    category: "Top",
+    description: "톡 쏘는 발랄함과 섬세한 스파이스 향. 향기의 시작에 생동감 넘치는 위트와 현대적인 리듬을 부여합니다.",
+    origin: "브라질산 페퍼 트리 열매"
+  },
+  {
+    name: "레몬",
+    enName: "Lemon",
+    category: "Top",
+    description: "날카롭고 선명한 산미가 느껴지는 향. 지친 감각에 즉각적인 리프레시와 밝은 에너지를 선사합니다.",
+    origin: "시칠리아산 레몬 껍질"
   }
 ];

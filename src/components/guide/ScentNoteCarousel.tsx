@@ -1,27 +1,28 @@
 /**
  * @file ScentNoteCarousel.tsx
- * @description 향기의 계층(Top, Middle, Base)을 탐색하는 인터랙티브 캐러셀 컴포넌트입니다.
- * 탭 전환, 무한 루프 캐러셀, 10초 주기 자동 재생 및 타이머 초기화 로직을 포함합니다.
+ * @description 향기의 계층(Top, Middle, Base)을 탐색하고 선호 원료를 선택하는 인터랙티브 캐러셀 컴포넌트입니다.
+ * 탭 전환, 무한 루프 캐러셀, 10초 주기 자동 재생 및 최대 3개 원료 선택 기능을 포함합니다.
  */
 
 import { useState, useEffect, useCallback } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Check, RefreshCw } from 'lucide-react';
+import { scentNotes } from "@/data/noteData";
+import type { ScentNote } from "@/data/noteData";
 
-// 임시 데이터 정의 (Olfit 무드에 맞춰 일부 수정 가능)
-const notesData = {
-  Top: ['시트러스', '베르가못', '레몬', '오렌지', '자몽', '만다린', '네롤리', '유자'],
-  Middle: ['자스민', '로즈', '일랑일랑', '뮤겟', '라벤더', '제라늄', '오키드', '프리지아'],
-  Base: ['머스크', '샌달우드', '바닐라', '앰버', '시더우드', '패출리', '오크모스', '베티버'],
-};
+interface ScentNoteCarouselProps {
+  /** 선택된 노드들이 변경될 때 부모 컴포넌트로 전달하는 콜백 */
+  onNotesChange?: (notes: string[]) => void;
+}
 
-type NoteType = keyof typeof notesData;
-
-export default function ScentNoteCarousel() {
-  const [activeTab, setActiveTab] = useState<NoteType>('Top');
+export default function ScentNoteCarousel({ onNotesChange }: ScentNoteCarouselProps) {
+  const [activeTab, setActiveTab] = useState<"Top" | "Middle" | "Base">('Top');
   const [currentIndex, setCurrentIndex] = useState(0);
+  /** 사용자가 선택한 노트 객체 리스트 (최대 3개) */
+  const [selectedNotes, setSelectedNotes] = useState<ScentNote[]>([]);
 
-  const currentNotes = notesData[activeTab];
+  const currentNotes = scentNotes.filter(n => n.category === activeTab);
   const totalNotes = currentNotes.length;
+  const currentNote = currentNotes[currentIndex];
 
   const handleNext = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % totalNotes);
@@ -31,13 +32,37 @@ export default function ScentNoteCarousel() {
     setCurrentIndex((prev) => (prev - 1 + totalNotes) % totalNotes);
   }, [totalNotes]);
 
-  const handleTabChange = (tab: NoteType) => {
+  const handleTabChange = (tab: "Top" | "Middle" | "Base") => {
     setActiveTab(tab);
     setCurrentIndex(0);
   };
 
   const handleDotClick = (index: number) => {
     setCurrentIndex(index);
+  };
+
+  /**
+   * 노트를 선택하거나 해제하는 핸들러
+   */
+  const toggleNote = (note: ScentNote) => {
+    let newNotes;
+    if (selectedNotes.find((n) => n.enName === note.enName)) {
+      newNotes = selectedNotes.filter((n) => n.enName !== note.enName);
+    } else if (selectedNotes.length < 3) {
+      newNotes = [...selectedNotes, note];
+    } else {
+      return;
+    }
+    
+    setSelectedNotes(newNotes);
+    if (onNotesChange) {
+      onNotesChange(newNotes.map(n => n.name));
+    }
+  };
+
+  const resetNotes = () => {
+    setSelectedNotes([]);
+    if (onNotesChange) onNotesChange([]);
   };
 
   useEffect(() => {
@@ -48,11 +73,46 @@ export default function ScentNoteCarousel() {
     return () => clearInterval(timer);
   }, [activeTab, currentIndex, handleNext]);
 
+  const isSelected = selectedNotes.find((n) => n.enName === currentNote?.enName);
+
   return (
-    <div className="w-full bg-cream/30 rounded-sm border border-wood/5 p-8 md:p-12 flex flex-col items-center mt-12">
+    <div className="w-full bg-cream/30 rounded-sm border border-wood/5 p-8 md:p-12 flex flex-col items-center mt-12 relative overflow-hidden">
+      {/* 배경 장식 (선택된 상태일 때 은은한 효과) */}
+      <div className={`absolute inset-0 bg-wood/5 transition-opacity duration-1000 ${isSelected ? 'opacity-100' : 'opacity-0'}`} />
+
+      {/* 상단 헤더: 제목 및 선택 카운터 */}
+      <div className="relative z-10 w-full flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
+        <div className="text-center md:text-left">
+          <h3 className="text-[11px] md:text-[12px] font-bold uppercase tracking-[0.2em] text-wood/30 mb-2">
+            03. Scent Explorer (원료 탐색 및 선택)
+          </h3>
+          <p className="text-[11px] text-wood/50">마음에 드는 원료를 최대 3개까지 선택해 보세요.</p>
+        </div>
+
+        <div className="flex items-center gap-6">
+          <div className="flex items-center gap-2">
+            {[1, 2, 3].map((num) => (
+              <div 
+                key={num} 
+                className={`w-2 h-2 rounded-full border transition-all duration-500 ${
+                  selectedNotes.length >= num ? 'bg-wood border-wood scale-110' : 'border-wood/20'
+                }`} 
+              />
+            ))}
+          </div>
+          <button 
+            onClick={resetNotes}
+            className="flex items-center gap-1.5 text-[9px] uppercase tracking-[0.2em] text-wood/40 hover:text-wood transition-colors"
+          >
+            <RefreshCw size={12} />
+            Reset
+          </button>
+        </div>
+      </div>
+
       {/* 1. 상단 탭 */}
-      <div className="flex gap-6 md:gap-8 mb-12 w-full justify-center">
-        {(['Top', 'Middle', 'Base'] as NoteType[]).map((tab) => (
+      <div className="relative z-10 flex gap-6 md:gap-8 mb-16 w-full justify-center">
+        {(['Top', 'Middle', 'Base'] as const).map((tab) => (
           <button
             key={tab}
             onClick={() => handleTabChange(tab)}
@@ -69,60 +129,91 @@ export default function ScentNoteCarousel() {
       </div>
 
       {/* 2. 캐러셀 메인 영역 */}
-      <div className="relative w-full flex flex-col items-center">
-        <div className="text-[10px] tracking-[0.3em] text-wood/30 uppercase mb-6 font-mono">
+      <div className="relative z-10 w-full flex flex-col items-center max-w-2xl">
+        <div className="text-[10px] tracking-[0.3em] text-wood/30 uppercase mb-8 font-mono">
           {currentIndex + 1} / {totalNotes}
         </div>
 
-        <div className="flex items-center justify-between w-full max-w-sm">
+        <div className="flex items-center justify-between w-full mb-10 gap-4 sm:gap-12">
           <button
             onClick={handlePrev}
-            className="p-2 text-wood/30 hover:text-wood transition-colors"
+            className="p-4 text-wood/20 hover:text-wood transition-colors flex-shrink-0"
             aria-label="Previous note"
           >
-            <ChevronLeft size={20} strokeWidth={1.5} />
+            <ChevronLeft size={24} strokeWidth={1} />
           </button>
 
           <div 
             key={`${activeTab}-${currentIndex}`}
-            className="flex-1 text-center animate-in fade-in duration-1000 ease-out"
+            className="flex-1 text-center animate-in fade-in slide-in-from-bottom-2 duration-1000 ease-out cursor-pointer group"
+            onClick={() => toggleNote(currentNote)}
           >
-            <h3 className="text-2xl md:text-3xl font-light tracking-tight text-wood" style={{ fontFamily: "'Playfair Display', serif" }}>
-              {currentNotes[currentIndex]}
-            </h3>
+            <div className="relative inline-block mb-4">
+              <h3 className="text-3xl md:text-5xl font-light tracking-tight text-wood mb-2" style={{ fontFamily: "'Playfair Display', serif" }}>
+                {currentNote?.name}
+              </h3>
+              {isSelected && (
+                <div className="absolute -top-2 -right-6 text-wood animate-in zoom-in duration-500">
+                  <Check size={20} strokeWidth={3} />
+                </div>
+              )}
+            </div>
+            <p className="text-[10px] uppercase tracking-[0.4em] text-wood/30 mb-8">{currentNote?.enName}</p>
+            <p className="text-[14px] md:text-[16px] leading-relaxed text-wood/60 break-keep max-w-md mx-auto font-light transition-colors group-hover:text-wood/80">
+              {currentNote?.description}
+            </p>
           </div>
 
           <button
             onClick={handleNext}
-            className="p-2 text-wood/30 hover:text-wood transition-colors"
+            className="p-4 text-wood/20 hover:text-wood transition-colors flex-shrink-0"
             aria-label="Next note"
           >
-            <ChevronRight size={20} strokeWidth={1.5} />
+            <ChevronRight size={24} strokeWidth={1} />
           </button>
         </div>
+
+        {/* 선택 버튼 */}
+        <button
+          onClick={() => toggleNote(currentNote)}
+          className={`px-10 py-3 rounded-full text-[10px] uppercase tracking-[0.2em] transition-all duration-500 border ${
+            isSelected 
+              ? 'bg-wood text-cream border-wood' 
+              : 'bg-transparent text-wood/60 border-wood/20 hover:border-wood/40 hover:text-wood'
+          }`}
+        >
+          {isSelected ? 'Selected' : 'Select this Note'}
+        </button>
       </div>
 
       {/* 3. 하단 점 인디케이터 */}
-      <div className="flex gap-2 mt-12">
-        {currentNotes.map((_, idx) => (
-          <button
-            key={idx}
-            onClick={() => handleDotClick(idx)}
-            className={`h-1 rounded-full transition-all duration-500 ease-in-out ${
-              currentIndex === idx 
-                ? 'w-6 bg-wood' 
-                : 'w-1.5 bg-wood/10 hover:bg-wood/20'
-            }`}
-            aria-label={`Go to slide ${idx + 1}`}
-          />
-        ))}
+      <div className="relative z-10 flex gap-2 mt-16">
+        {currentNotes.map((note, idx) => {
+          const isNoteSelected = selectedNotes.find(n => n.enName === note.enName);
+          return (
+            <button
+              key={idx}
+              onClick={() => handleDotClick(idx)}
+              className={`h-1 rounded-full transition-all duration-500 ease-in-out relative ${
+                currentIndex === idx 
+                  ? 'w-8 bg-wood' 
+                  : 'w-2 bg-wood/10 hover:bg-wood/20'
+              }`}
+            >
+              {isNoteSelected && currentIndex !== idx && (
+                <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-wood rounded-full" />
+              )}
+            </button>
+          );
+        })}
       </div>
 
-      <p className="mt-10 text-[9px] text-wood/20 tracking-[0.3em] uppercase italic">
-        Olfit Scent Layering Guide
+      <p className="relative z-10 mt-12 text-[9px] text-wood/20 tracking-[0.3em] uppercase italic">
+        Your Selection will be reflected in AI Analysis
       </p>
     </div>
   );
 }
+
 
 // EOF: ScentNoteCarousel.tsx

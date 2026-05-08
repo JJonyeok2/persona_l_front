@@ -8,7 +8,6 @@ import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import ConcentrationList from "@/components/guide/ConcentrationList";
 import FamilyCarousel from "@/components/guide/FamilyCarousel";
 import ScentNoteCarousel from "@/components/guide/ScentNoteCarousel";
-import NoteGlossary from "@/components/guide/NoteGlossary";
 import { scentFamilies, concentrations } from "@/data/scentData";
 
 interface ScentGuideSectionProps {
@@ -47,11 +46,8 @@ export default function ScentGuideSection({ onNotesChange }: ScentGuideSectionPr
             <FamilyCarousel families={scentFamilies} />
           </div>
 
-          {/* 03. 향기의 계층 (Note Carousel) */}
-          <ScentNoteCarousel />
-
-          {/* 04. 인터랙티브 향기 원료 사전 (Note Glossary) */}
-          <NoteGlossary onNotesChange={onNotesChange} />
+          {/* 03. 향기의 계층 (Note Carousel & Selection) */}
+          <ScentNoteCarousel onNotesChange={onNotesChange} />
         </div>
       </div>
     </section>

@@ -84,42 +84,49 @@ export default function InsightReportSection({ results, onProductClick }: Insigh
     setIsSaving(true);
     
     try {
-      // 1. 폰트 로딩 대기
-      if (document.fonts) {
-        await document.fonts.ready;
-      }
+      // 1. 폰트 및 이미지 로딩 대기 (최대 3초만 대기하여 중단 방지)
+      const loadTimeout = new Promise(resolve => setTimeout(resolve, 3000));
+      
+      const resourcePromise = (async () => {
+        // 폰트 대기
+        if (document.fonts) {
+          await document.fonts.ready;
+        }
 
-      // 2. 리포트 내 이미지 디코딩 확인
-      const images = reportRef.current.querySelectorAll("img");
-      const imagePromises = Array.from(images).map((img) => {
-        if (img.complete) return Promise.resolve();
-        return img.decode().catch(() => {
-          // 디코딩 실패 시 에러 무시하고 진행 (네트워크 에러 등 대비)
+        // 이미지 대기
+        const images = reportRef.current?.querySelectorAll("img") || [];
+        const imagePromises = Array.from(images).map((img) => {
+          if (img.complete) return Promise.resolve();
           return new Promise((resolve) => {
             img.onload = resolve;
             img.onerror = resolve;
+            // 2초 후에는 개별 이미지 로딩 포기
+            setTimeout(resolve, 2000);
           });
         });
-      });
-      await Promise.all(imagePromises);
+        await Promise.all(imagePromises);
+      })();
 
-      // 3. UI 업데이트 및 브라우저 렌더링 안정을 위한 강제 지연 (1000ms)
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // 리소스 로딩 혹은 타임아웃 중 먼저 끝나는 쪽을 대기
+      await Promise.race([resourcePromise, loadTimeout]);
+
+      // 2. UI 업데이트 및 브라우저 렌더링 안정을 위한 짧은 지연 (500ms)
+      await new Promise(resolve => setTimeout(resolve, 500));
 
       const canvas = await html2canvas(reportRef.current, {
         backgroundColor: "#FDFCF0",
-        scale: 3, // 고해상도 출력을 위해 스케일을 3으로 상향 (약 300 DPI 수준)
+        scale: 2.5, // 3배에서 2.5배로 약간 하향하여 메모리 부담 완화 및 호환성 확보
         useCORS: true,
-        logging: false,
-        allowTaint: true,
+        logging: true, // 디버깅을 위해 로깅 활성화
+        allowTaint: false, // taint 허용 시 CORS 이슈 발생 가능하므로 false
         scrollX: 0,
         scrollY: -window.scrollY,
-        imageTimeout: 15000, // 이미지 로딩 타임아웃 넉넉히 설정
+        imageTimeout: 15000,
         onclone: (clonedDoc) => {
           const el = clonedDoc.getElementById("report-content");
           if (el) {
             // 1. 고정 레이아웃 강제 및 텍스트 렌더링 힌트 추가
-            el.style.width = "1000px"; // 출력을 위해 가로폭 확장
+            el.style.width = "1000px";
             el.style.maxWidth = "1000px";
             el.style.minWidth = "1000px";
             el.style.padding = "80px";
@@ -129,7 +136,6 @@ export default function InsightReportSection({ results, onProductClick }: Insigh
             (el.style as any).webkitFontSmoothing = "antialiased";
             (el.style as any).mozOsxFontSmoothing = "grayscale";
 
-            // 모든 하위 요소에 box-sizing 및 텍스트 힌트 적용
             const allElements = el.querySelectorAll("*");
             allElements.forEach((node) => {
               const target = node as HTMLElement;
@@ -137,7 +143,6 @@ export default function InsightReportSection({ results, onProductClick }: Insigh
               (target.style as any).webkitFontSmoothing = "antialiased";
             });
             
-            // 2. 텍스트 및 폰트 최적화 (px 단위 고정 및 선명도 강화)
             const texts = el.querySelectorAll("p, h2, h3, span, div, text");
             texts.forEach((node) => {
               const target = node as HTMLElement;
@@ -146,7 +151,6 @@ export default function InsightReportSection({ results, onProductClick }: Insigh
               target.style.wordBreak = "keep-all";
               target.style.whiteSpace = "normal";
               
-              // 폰트 크기 강제 고정 (출력물 최적화)
               const className = target.className;
               if (className.includes("text-3xl") || className.includes("text-4xl") || className.includes("text-5xl")) {
                 target.style.fontSize = "42px";
@@ -161,7 +165,6 @@ export default function InsightReportSection({ results, onProductClick }: Insigh
               }
             });
 
-            // 3. 섹션 간격 조정
             const spacingElements = el.querySelectorAll(".mb-32, .mt-32, .mb-20, .mb-12, .mb-16, .gap-16, .gap-24");
             spacingElements.forEach((node) => {
               const target = node as HTMLElement;
@@ -172,7 +175,6 @@ export default function InsightReportSection({ results, onProductClick }: Insigh
               if (target.classList.contains("mb-16")) target.style.marginBottom = "40px";
             });
 
-            // 4. 로고 및 헤더 추가 (리포트의 공식적인 느낌 부여)
             const header = clonedDoc.createElement("div");
             header.style.display = "flex";
             header.style.justifyContent = "space-between";
@@ -199,6 +201,7 @@ export default function InsightReportSection({ results, onProductClick }: Insigh
       link.click();
     } catch (err) {
       console.error("이미지 저장 실패:", err);
+      alert("리포트 생성 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.");
     } finally {
       setIsSaving(false);
     }

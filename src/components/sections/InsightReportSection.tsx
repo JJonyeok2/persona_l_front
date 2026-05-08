@@ -78,7 +78,7 @@ export default function InsightReportSection({ results, onProductClick }: Insigh
   const getThemeColors = () => ({ bg: "bg-cream", accent: "text-wood", border: "border-wood/10" });
   const theme = getThemeColors();
 
-  // 공통 고해상도 캡처 로직 (Blob 반환 - 안정성 최우선 버전)
+  // 공통 고해상도 캡처 로직 (Blob 반환 - 안정성 최우선 + 애니메이션 무력화 완벽 병합)
   const captureReportBlob = async (): Promise<Blob | null> => {
     if (!reportRef.current) return null;
 
@@ -110,10 +110,10 @@ export default function InsightReportSection({ results, onProductClick }: Insigh
 
       const canvas = await html2canvas(reportElement, {
         backgroundColor: "#FDFCF0",
-        scale: 1.5, // 메모리 안전을 위해 1.5배로 하향 (모바일 호환성 극대화)
+        scale: 1.5, // 메모리 안전을 위해 1.5배
         useCORS: true,
-        allowTaint: false, // 보안상 false 유지
-        logging: true, // 에러 추적을 위해 활성화
+        allowTaint: false,
+        logging: false, // 배포용이므로 false로 끄는 것을 권장합니다
         imageTimeout: 10000,
         scrollX: 0,
         scrollY: -window.scrollY,
@@ -121,13 +121,30 @@ export default function InsightReportSection({ results, onProductClick }: Insigh
           const el = clonedDoc.getElementById("report-content");
           if (!el) return;
           
+          // 레이아웃 고정
           el.style.width = "1000px";
           el.style.maxWidth = "1000px";
+          el.style.minWidth = "1000px"; // 추가 보정
           el.style.padding = "60px";
           el.style.boxSizing = "border-box";
           el.style.filter = "none";
           el.style.transform = "none";
 
+          // 🔥 [핵심 병합 파트] 모든 자식 요소의 애니메이션 끄고 강제로 100% 보여주기
+          const allElements = el.querySelectorAll("*");
+          allElements.forEach((node) => {
+            const target = node as HTMLElement;
+            target.style.boxSizing = "border-box";
+            
+            // Tailwind의 opacity-0 이나 animate-in 효과 무력화 (!important 강제 적용)
+            target.style.setProperty("opacity", "1", "important");
+            target.style.setProperty("visibility", "visible", "important");
+            target.style.setProperty("transform", "none", "important");
+            target.style.setProperty("animation", "none", "important");
+            target.style.setProperty("transition", "none", "important");
+          });
+
+          // 텍스트 깨짐 방지
           const texts = el.querySelectorAll("p, h2, h3, span, div");
           texts.forEach((node) => {
             const target = node as HTMLElement;
@@ -135,19 +152,22 @@ export default function InsightReportSection({ results, onProductClick }: Insigh
             target.style.whiteSpace = "normal";
           });
 
-          // 로고/헤더 추가
+          // 고급스러운 OLFIT 로고/헤더 추가
           const header = clonedDoc.createElement("div");
           header.style.cssText = "display:flex; justify-content:space-between; align-items:center; margin-bottom:40px; border-bottom:1px solid rgba(107,68,35,0.1); padding-bottom:15px;";
           header.innerHTML = `
-            <div style="font-family:serif; font-size:24px; color:#6B4423; letter-spacing:0.2em;">OLFIT</div>
-            <div style="font-size:10px; color:rgba(107,68,35,0.4);">${new Date().toLocaleDateString()}</div>
+            <div style="font-family: 'Playfair Display', serif; font-size:28px; font-weight: 300; letter-spacing: 0.25em; color:#6B4423; text-transform: uppercase;">OLFIT</div>
+            <div style="text-align: right;">
+              <div style="font-size: 11px; font-weight: 600; color: #6B4423; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px;">Precision Analysis Report</div>
+              <div style="font-size: 10px; color:rgba(107, 68, 35, 0.5); letter-spacing: 0.05em;">${new Date().toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric' })}</div>
+            </div>
           `;
           el.prepend(header);
         }
       });
 
       return new Promise<Blob | null>((resolve) => {
-        canvas.toBlob((blob) => resolve(blob), "image/png", 0.9);
+        canvas.toBlob((blob) => resolve(blob), "image/png", 1.0); // 화질을 위해 0.9에서 1.0으로 복구
       });
     })();
 

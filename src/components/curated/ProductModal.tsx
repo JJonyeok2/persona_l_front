@@ -53,8 +53,8 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
                 <span key={tag} className="text-[9px] uppercase tracking-widest border border-wood/20 px-2 py-0.5">{tag}</span>
               ))}
             </div>
-            <p className="text-[11px] uppercase tracking-[0.3em] text-wood/40 mb-2">{product.brand}</p>
-            <h3 className="text-3xl md:text-4xl font-light tracking-tight mb-4">{product.name}</h3>
+            <p className="text-[11px] uppercase tracking-[0.3em] text-wood/40 mb-2" style={{ fontFamily: "'Playfair Display', serif" }}>{product.brand}</p>
+            <h3 className="text-3xl md:text-4xl font-light tracking-tight mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>{product.name}</h3>
             <p className="text-xl font-light opacity-80">{product.price}</p>
           </div>
 

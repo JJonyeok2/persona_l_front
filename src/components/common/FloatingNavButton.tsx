@@ -88,7 +88,7 @@ export default function FloatingNavButton() {
       className={`fixed right-6 sm:right-8 z-40 w-12 h-12 rounded-full bg-wood text-cream shadow-editorial flex items-center justify-center transition-all duration-500 hover:scale-110 active:scale-95 group ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"
       } ${
-        isAtFooter ? "bottom-24 sm:bottom-32" : "bottom-8 sm:bottom-10"
+        isAtFooter ? "bottom-16 sm:bottom-20" : "bottom-8 sm:bottom-10"
       }`}
       aria-label="이동 버튼"
     >

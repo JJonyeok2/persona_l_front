@@ -81,127 +81,116 @@ export default function InsightReportSection({ results, onProductClick }: Insigh
   const saveReportAsImage = async () => {
     if (!reportRef.current || isSaving) return;
     
+    console.log("리포트 저장 프로세스 시작...");
     setIsSaving(true);
     
     try {
-      // 1. 폰트 및 이미지 로딩 대기 (최대 3초만 대기하여 중단 방지)
-      const loadTimeout = new Promise(resolve => setTimeout(resolve, 3000));
+      // 1. 폰트 및 이미지 로딩 대기 (최대 3초)
+      console.log("리소스 로딩 대기 중...");
+      const loadTimeout = new Promise(resolve => setTimeout(() => {
+        console.log("로딩 타임아웃 발생 (일부 자원이 누락되었을 수 있음)");
+        resolve(null);
+      }, 3000));
       
       const resourcePromise = (async () => {
-        // 폰트 대기
-        if (document.fonts) {
-          await document.fonts.ready;
-        }
-
-        // 이미지 대기
-        const images = reportRef.current?.querySelectorAll("img") || [];
-        const imagePromises = Array.from(images).map((img) => {
-          if (img.complete) return Promise.resolve();
-          return new Promise((resolve) => {
-            img.onload = resolve;
-            img.onerror = resolve;
-            // 2초 후에는 개별 이미지 로딩 포기
-            setTimeout(resolve, 2000);
+        try {
+          if (document.fonts) {
+            await document.fonts.ready;
+          }
+          const images = reportRef.current?.querySelectorAll("img") || [];
+          const imagePromises = Array.from(images).map((img) => {
+            if (img.complete) return Promise.resolve();
+            return new Promise((resolve) => {
+              img.onload = resolve;
+              img.onerror = resolve;
+              setTimeout(resolve, 2000);
+            });
           });
-        });
-        await Promise.all(imagePromises);
+          await Promise.all(imagePromises);
+          console.log("모든 리소스 로딩 완료");
+        } catch (e) {
+          console.warn("리소스 로딩 중 비치명적 오류:", e);
+        }
       })();
 
-      // 리소스 로딩 혹은 타임아웃 중 먼저 끝나는 쪽을 대기
       await Promise.race([resourcePromise, loadTimeout]);
 
-      // 2. UI 업데이트 및 브라우저 렌더링 안정을 위한 짧은 지연 (500ms)
+      // 2. 렌더링 안정화 지연
       await new Promise(resolve => setTimeout(resolve, 500));
 
+      console.log("html2canvas 캡처 시작...");
       const canvas = await html2canvas(reportRef.current, {
         backgroundColor: "#FDFCF0",
-        scale: 2.5, // 3배에서 2.5배로 약간 하향하여 메모리 부담 완화 및 호환성 확보
+        scale: 2, // 안정성을 위해 2배로 조정
         useCORS: true,
-        logging: true, // 디버깅을 위해 로깅 활성화
-        allowTaint: false, // taint 허용 시 CORS 이슈 발생 가능하므로 false
+        logging: true,
+        allowTaint: false,
         scrollX: 0,
         scrollY: -window.scrollY,
-        imageTimeout: 15000,
         onclone: (clonedDoc) => {
+          console.log("DOM 복제 및 변환 중...");
           const el = clonedDoc.getElementById("report-content");
-          if (el) {
-            // 1. 고정 레이아웃 강제 및 텍스트 렌더링 힌트 추가
-            el.style.width = "1000px";
-            el.style.maxWidth = "1000px";
-            el.style.minWidth = "1000px";
-            el.style.padding = "80px";
-            el.style.boxSizing = "border-box";
-            el.style.filter = "none";
-            el.style.transform = "none";
-            (el.style as any).webkitFontSmoothing = "antialiased";
-            (el.style as any).mozOsxFontSmoothing = "grayscale";
-
-            const allElements = el.querySelectorAll("*");
-            allElements.forEach((node) => {
-              const target = node as HTMLElement;
-              target.style.boxSizing = "border-box";
-              (target.style as any).webkitFontSmoothing = "antialiased";
-            });
-            
-            const texts = el.querySelectorAll("p, h2, h3, span, div, text");
-            texts.forEach((node) => {
-              const target = node as HTMLElement;
-              target.style.lineHeight = "1.5";
-              target.style.letterSpacing = "-0.01em";
-              target.style.wordBreak = "keep-all";
-              target.style.whiteSpace = "normal";
-              
-              const className = target.className;
-              if (className.includes("text-3xl") || className.includes("text-4xl") || className.includes("text-5xl")) {
-                target.style.fontSize = "42px";
-                target.style.fontWeight = "300";
-              } else if (className.includes("text-xl") || className.includes("text-2xl")) {
-                target.style.fontSize = "24px";
-              } else if (className.includes("text-[15px]") || className.includes("text-base")) {
-                target.style.fontSize = "16px";
-              } else if (className.includes("text-[10px]") || className.includes("text-[11px]") || className.includes("text-[9px]")) {
-                target.style.fontSize = "12px";
-                target.style.letterSpacing = "0.1em";
-              }
-            });
-
-            const spacingElements = el.querySelectorAll(".mb-32, .mt-32, .mb-20, .mb-12, .mb-16, .gap-16, .gap-24");
-            spacingElements.forEach((node) => {
-              const target = node as HTMLElement;
-              if (target.classList.contains("mb-32")) target.style.marginBottom = "80px";
-              if (target.classList.contains("mt-32")) target.style.marginTop = "80px";
-              if (target.classList.contains("mb-20")) target.style.marginBottom = "60px";
-              if (target.classList.contains("mb-12")) target.style.marginBottom = "30px";
-              if (target.classList.contains("mb-16")) target.style.marginBottom = "40px";
-            });
-
-            const header = clonedDoc.createElement("div");
-            header.style.display = "flex";
-            header.style.justifyContent = "space-between";
-            header.style.alignItems = "center";
-            header.style.marginBottom = "60px";
-            header.style.borderBottom = "1px solid rgba(107, 68, 35, 0.1)";
-            header.style.paddingBottom = "20px";
-            
-            header.innerHTML = `
-              <div style="font-family: serif; font-size: 28px; font-weight: 300; letter-spacing: 0.25em; color: #6B4423; text-transform: uppercase;">OLFIT</div>
-              <div style="text-align: right;">
-                <div style="font-size: 11px; font-weight: 600; color: #6B4423; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px;">Analysis Report</div>
-                <div style="font-size: 10px; color: rgba(107, 68, 35, 0.5); letter-spacing: 0.05em;">${new Date().toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric' })}</div>
-              </div>
-            `;
-            el.prepend(header);
+          if (!el) {
+            console.error("복제된 문서에서 리포트 컨텐츠를 찾을 수 없습니다.");
+            return;
           }
+
+          // 기본 스타일 강제
+          el.style.width = "1000px";
+          el.style.maxWidth = "1000px";
+          el.style.minWidth = "1000px";
+          el.style.padding = "80px";
+          el.style.boxSizing = "border-box";
+          el.style.filter = "none";
+          el.style.transform = "none";
+
+          // 텍스트 최적화
+          const texts = el.querySelectorAll("p, h2, h3, span, div, text");
+          texts.forEach((node) => {
+            const target = node as HTMLElement;
+            target.style.wordBreak = "keep-all";
+            target.style.whiteSpace = "normal";
+            
+            const className = target.className || "";
+            if (className.includes("text-3xl") || className.includes("text-4xl") || className.includes("text-5xl")) {
+              target.style.fontSize = "42px";
+            } else if (className.includes("text-xl") || className.includes("text-2xl")) {
+              target.style.fontSize = "24px";
+            }
+          });
+
+          // 헤더 추가
+          const header = clonedDoc.createElement("div");
+          header.style.display = "flex";
+          header.style.justifyContent = "space-between";
+          header.style.alignItems = "center";
+          header.style.marginBottom = "60px";
+          header.style.borderBottom = "1px solid rgba(107, 68, 35, 0.1)";
+          header.style.paddingBottom = "20px";
+          
+          header.innerHTML = `
+            <div style="font-family: serif; font-size: 28px; font-weight: 300; letter-spacing: 0.25em; color: #6B4423; text-transform: uppercase;">OLFIT</div>
+            <div style="text-align: right;">
+              <div style="font-size: 11px; font-weight: 600; color: #6B4423; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px;">Analysis Report</div>
+              <div style="font-size: 10px; color: rgba(107, 68, 35, 0.5); letter-spacing: 0.05em;">${new Date().toLocaleDateString()}</div>
+            </div>
+          `;
+          el.prepend(header);
+          console.log("DOM 변환 완료");
         }
       });
+
+      console.log("이미지 변환 및 다운로드 시도...");
       const image = canvas.toDataURL("image/png", 1.0);
       const link = document.createElement("a");
       link.href = image;
-      link.download = `Olfit_Analysis_Report_${new Date().getTime()}.png`;
+      link.download = `Olfit_Report_${Date.now()}.png`;
       link.click();
+      console.log("다운로드 명령 실행 완료");
+
     } catch (err) {
-      console.error("이미지 저장 실패:", err);
-      alert("리포트 생성 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.");
+      console.error("리포트 저장 실패 원인:", err);
+      alert(`저장 실패: ${err instanceof Error ? err.message : "알 수 없는 오류"}`);
     } finally {
       setIsSaving(false);
     }

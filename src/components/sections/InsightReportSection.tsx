@@ -9,7 +9,7 @@ import RadarChart from "@/components/common/RadarChart";
 import ProductCarousel from "@/components/report/ProductCarousel";
 import { radarData } from "@/data/reportData";
 import { getRecommendedProducts } from "@/services/recommendationEngine";
-import { Download, Share2, Check } from "lucide-react";
+import { Share2, Check } from "lucide-react";
 import html2canvas from "html2canvas";
 import { useRef, useMemo, useState } from "react";
 import type { AnalysisResults } from "@/types";
@@ -172,32 +172,6 @@ export default function InsightReportSection({ results, onProductClick }: Insigh
     });
   };
 
-  // 리포트 이미지 저장 함수 (다운로드)
-  const saveReportAsImage = async () => {
-    if (isSaving) return;
-    setIsSaving(true);
-    
-    try {
-      const blob = await captureReportBlob();
-      if (!blob) throw new Error("이미지 생성 실패");
-
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = `Olfit_Report_${Date.now()}.png`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      setTimeout(() => window.URL.revokeObjectURL(url), 100);
-
-    } catch (err) {
-      console.error("저장 실패:", err);
-      alert("리포트 생성 중 문제가 발생했습니다.");
-    } finally {
-      setIsSaving(false);
-    }
-  };
-
   // 결과 공유 함수 (이미지 캡처 및 공유/복사)
   const shareResults = async () => {
     if (isSaving) return;
@@ -269,42 +243,34 @@ export default function InsightReportSection({ results, onProductClick }: Insigh
                 당신의 비주얼 아우라 진단
               </h2>
               
-              <div className="flex flex-wrap justify-center gap-4">
+              <div className="flex justify-center">
                 <button 
-                  onClick={saveReportAsImage}
+                  onClick={shareResults}
                   disabled={isSaving}
-                  className={`flex items-center gap-2 px-6 py-2.5 border border-wood/20 rounded-full text-[10px] sm:text-[11px] uppercase tracking-widest transition-all duration-300 ${
-                    isSaving ? "bg-wood/10 text-wood/40 cursor-not-allowed" : "hover:bg-wood hover:text-cream"
+                  className={`group flex items-center gap-3 px-8 py-3.5 border rounded-full text-[11px] sm:text-[12px] uppercase tracking-[0.2em] transition-all duration-300 ${
+                    isSaving 
+                      ? "bg-wood/5 text-wood/30 border-wood/10 cursor-not-allowed" 
+                      : isShared 
+                        ? "bg-green-50 text-green-600 border-green-200" 
+                        : "bg-wood text-cream border-wood hover:bg-wood/90 hover:shadow-lg active:scale-95"
                   }`}
                 >
                   {isSaving ? (
                     <>
                       <div className="w-3 h-3 border-2 border-wood/20 border-t-wood rounded-full animate-spin" />
-                      고화질 리포트를 정밀하게 생성 중입니다. 잠시만 기다려 주세요 (약 3~5초 소요)
+                      {/* 긴 텍스트는 모바일에서 깨질 수 있으므로 간결하게 조정 */}
+                      <span className="hidden sm:inline">고화질 리포트 정밀 생성 중...</span>
+                      <span className="sm:hidden">생성 중...</span>
+                    </>
+                  ) : isShared ? (
+                    <>
+                      <Check size={16} />
+                      이미지 복사 완료!
                     </>
                   ) : (
                     <>
-                      <Download size={14} />
-                      Save Report as Image
-                    </>
-                  )}
-                </button>
-
-                <button 
-                  onClick={shareResults}
-                  className={`flex items-center gap-2 px-6 py-2.5 border border-wood/20 rounded-full text-[10px] sm:text-[11px] uppercase tracking-widest transition-all duration-300 ${
-                    isShared ? "bg-green-50 text-green-600 border-green-200" : "hover:bg-wood hover:text-cream text-wood"
-                  }`}
-                >
-                  {isShared ? (
-                    <>
-                      <Check size={14} />
-                      Link Copied!
-                    </>
-                  ) : (
-                    <>
-                      <Share2 size={14} />
-                      Share Results
+                      <Share2 size={16} className="group-hover:rotate-12 transition-transform" />
+                      Share & Save Report
                     </>
                   )}
                 </button>

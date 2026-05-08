@@ -55,6 +55,24 @@ export default function FooterSection() {
     });
   };
 
+  const openTerms = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setModalContent({
+      title: "Terms of Service",
+      body: (
+        <div className="space-y-4 text-[12px] text-wood/70 leading-relaxed max-h-[40vh] overflow-y-auto pr-2 scrollbar-thin">
+          <p className="font-medium text-wood text-[13px]">1. 서비스의 목적</p>
+          <p>Olfit은 AI 기술을 활용하여 사용자에게 최적화된 향기 제품을 추천하고 가이드를 제공하는 큐레이션 서비스입니다.</p>
+          <p className="font-medium text-wood text-[13px]">2. 분석 결과의 소유권</p>
+          <p>생성된 향기 아우라 리포트 및 이미지는 사용자의 개인적 용도로만 사용 가능하며, 상업적 목적으로의 무단 배포를 금합니다.</p>
+          <p className="font-medium text-wood text-[13px]">3. 면책 조항</p>
+          <p>추천 결과는 AI의 주관적 분석에 근거하며, 실제 제품의 향기 체감은 개인마다 다를 수 있음을 고지합니다.</p>
+          <p className="pt-4 border-t border-wood/5 text-[10px] text-wood/40">본 약관은 추후 서비스 운영 정책에 따라 변경될 수 있습니다.</p>
+        </div>
+      )
+    });
+  };
+
   return (
     <footer className="bg-cream border-t border-wood/10" data-project="olfit-jjonyeok">
       {/* 
@@ -115,9 +133,12 @@ export default function FooterSection() {
             >
               개인정보 처리방침
             </button>
-            <a href="#" className="text-[10px] text-wood/30 hover:text-wood/60 transition-colors duration-300 tracking-wider">
+            <button 
+              onClick={openTerms}
+              className="text-[10px] text-wood/30 hover:text-wood/60 transition-colors duration-300 tracking-wider"
+            >
               이용약관
-            </a>
+            </button>
           </div>
         </div>
       </div>

@@ -1,8 +1,8 @@
-# Olfit (올핏) - 나만의 향기 분석 플랫폼
+# Persona:L (페르소나:엘) - 나만의 향기 분석 플랫폼
 
 > **"당신의 페르소나를 향기로 완성하다"**
 >
-> Olfit은 AI 기반의 인터뷰를 통해 사용자의 성향과 취향을 분석하고, 그에 최적화된 향수와 라이프스타일을 제안하는 큐레이션 플랫폼입니다.
+> Persona:L은 AI 기반의 인터뷰를 통해 사용자의 성향과 취향을 분석하고, 그에 최적화된 향수와 라이프스타일을 제안하는 큐레이션 플랫폼입니다.
 
 ---
 
@@ -12,7 +12,7 @@
 ---
 
 ## 🚀 프로젝트 개요
-Olfit은 단순히 향수를 판매하는 것을 넘어, 사용자의 내면(Persona)을 탐구하고 이를 감각적인 경험으로 연결합니다. 세련된 인터페이스와 부드러운 애니메이션을 통해 프리미엄한 브랜드 경험을 제공합니다.
+Persona:L은 단순히 향수를 판매하는 것을 넘어, 사용자의 내면(Persona)을 탐구하고 이를 감각적인 경험으로 연결합니다. 세련된 인터페이스와 부드러운 애니메이션을 통해 프리미엄한 브랜드 경험을 제공합니다.
 
 - **목적**: 사용자 맞춤형 향기 분석 및 큐레이션 서비스 제공
 - **주요 타겟**: 자신의 취향을 깊게 탐구하고 감각적인 소비를 지향하는 사용자
@@ -57,10 +57,10 @@ Olfit은 단순히 향수를 판매하는 것을 넘어, 사용자의 내면(Per
 ### Installation
 ```bash
 # 저장소 클론
-git clone https://github.com/JJonyeok2/olfit_front.git
+git clone https://github.com/JJonyeok2/persona_l_front.git
 
 # 프로젝트 폴더로 이동
-cd olfit_front
+cd persona_l_front
 
 # 의존성 설치
 npm install
@@ -86,13 +86,20 @@ npm run preview
 
 ## 📂 Project Structure
 ```text
-src/
-├── components/   # 공통 UI 컴포넌트 (Shadcn UI)
-├── hooks/        # 커스텀 훅 (Intersection Observer 등)
-├── lib/          # 유틸리티 함수
-├── pages/        # 페이지 단위 컴포넌트
-├── sections/     # 메인 페이지 구성 섹션 (Hero, AI, Report 등)
-└── App.tsx       # 메인 애플리케이션 로직
+/
+├── docs/             # 프로젝트 문서 및 발표 자료
+├── tools/            # 데이터 수집(Crawler) 등 외부 도구
+└── src/
+    ├── components/
+    │   ├── common/   # 공통 UI 컴포넌트
+    │   ├── layout/   # Navigation, Footer 등 레이아웃
+    │   ├── sections/ # 메인 페이지 섹션 컴포넌트
+    │   └── ...       # 도메인별 컴포넌트 (curated, guide, report)
+    ├── data/         # 정적 데이터 및 상수 (scent, product, personalData)
+    ├── services/     # 비즈니스 로직 (추천 엔진 등)
+    ├── hooks/        # 커스텀 훅
+    ├── types/        # TypeScript 타입 정의
+    └── App.tsx       # 메인 애플리케이션 로직
 ```
 
 ---

@@ -158,10 +158,19 @@ export default function ScentNoteCarousel({ onNotesChange }: ScentNoteCarouselPr
                 </div>
               )}
             </div>
-            <p className="text-[10px] uppercase tracking-[0.4em] text-wood/30 mb-8">{currentNote?.enName}</p>
-            <p className="text-[14px] md:text-[16px] leading-relaxed text-wood/60 break-keep max-w-md mx-auto font-light transition-colors group-hover:text-wood/80">
-              {currentNote?.description}
-            </p>
+            <p className="text-[10px] uppercase tracking-[0.4em] text-wood/30 mb-6">{currentNote?.enName}</p>
+            
+            {/* 상세 설명 및 원산지 정보 (사전적 느낌 강조) */}
+            <div className="max-w-md mx-auto space-y-6">
+              <p className="text-[15px] md:text-[17px] leading-relaxed text-wood/70 break-keep font-light transition-colors group-hover:text-wood/90 italic">
+                "{currentNote?.description}"
+              </p>
+              
+              <div className="flex flex-col items-center gap-1 opacity-60 group-hover:opacity-100 transition-opacity">
+                <span className="text-[8px] uppercase tracking-[0.2em] text-wood/40">Origin</span>
+                <p className="text-[11px] text-wood/60 font-medium">{currentNote?.origin}</p>
+              </div>
+            </div>
           </div>
 
           <button

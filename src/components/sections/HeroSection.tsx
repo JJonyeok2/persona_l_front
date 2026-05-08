@@ -6,6 +6,7 @@
 
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 import OlfitLogo from "@/components/common/OlfitLogo";
 
 export default function HeroSection() {
@@ -27,6 +28,56 @@ export default function HeroSection() {
           }`}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-wood/40 via-transparent to-wood/60" />
+      </div>
+
+      {/* 
+        Framer Motion Glow Effects: 
+        은은한 햇빛이나 향기가 번지는 듯한 부드러운 애니메이션 레이어
+      */}
+      <div className="absolute inset-0 z-[1] pointer-events-none overflow-hidden opacity-30">
+        <motion.div
+          animate={{
+            x: [0, 100, -50],
+            y: [0, 50, 100],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            repeatType: "mirror",
+            ease: "easeInOut",
+          }}
+          className="absolute -top-[10%] -left-[10%] w-[600px] h-[600px] bg-cream/20 rounded-full blur-[120px]"
+        />
+        <motion.div
+          animate={{
+            x: [0, -80, 60],
+            y: [0, 120, -40],
+            scale: [1, 1.1, 0.9],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            repeatType: "mirror",
+            ease: "easeInOut",
+            delay: 2,
+          }}
+          className="absolute top-[20%] -right-[15%] w-[500px] h-[500px] bg-orange-200/10 rounded-full blur-[100px]"
+        />
+        <motion.div
+          animate={{
+            x: [0, 40, -100],
+            y: [0, -60, 80],
+          }}
+          transition={{
+            duration: 18,
+            repeat: Infinity,
+            repeatType: "mirror",
+            ease: "easeInOut",
+            delay: 5,
+          }}
+          className="absolute -bottom-[10%] left-[20%] w-[700px] h-[700px] bg-cream/15 rounded-full blur-[150px]"
+        />
       </div>
 
       {/* 중앙 콘텐츠: 메인 로고 및 슬로건 */}
